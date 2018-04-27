@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a263ddfa-d113-4cb1-bc27-5ea694e5aedd" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.gitlab-ci.yml" afterPath="$PROJECT_DIR$/.gitlab-ci.yml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -175,6 +173,14 @@
       <option name="presentableId" value="Default" />
       <updated>1524838052161</updated>
     </task>
+    <task id="LOCAL-00001" summary="adding gitignore and gitlab-ci file">
+      <created>1524845411790</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1524845411790</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -208,6 +214,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="adding gitignore and gitlab-ci file" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding gitignore and gitlab-ci file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
