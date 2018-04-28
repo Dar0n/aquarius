@@ -1,0 +1,39 @@
+version: "2"
+services:
+  database:
+    image: postgres:9.6.1
+    restart: always
+    env_file:
+      - prod.env
+    volumes:
+      - database:/var/lib/postgresql/data
+  app:
+    image: registry.gitlab.propulsion-home.ch/dar0n/django-rest:latest
+    restart: always
+    env_file:
+      - prod.env
+    depends_on:
+      - database
+    command: "sh /scripts/run.sh"
+    volumes:
+    # here first database refers to volume, that we define below. Here we map volume to folder inside container
+      - run:/run
+      - static-files:/static-files
+      - media-files:/media-files
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - run:/run
+      - static-files:/static-files
+      - media-files:/media-files
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+    command: /bin/bash -c "nginx -g 'daemon off;'"
+
+volumes:
+  database:
+  static-files:
+  media-files:
+  run:
