@@ -66,10 +66,10 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'  # overwriting defaults
-        # unique_together = [
-        #     ('restaurant', 'user'),
-        #     # ('review_like', 'user'),
-        # ]
+        unique_together = [
+            ('restaurant', 'user'),
+            # ('review_like', 'user'),
+        ]
         # ordering = ["-created"]  # now we dont need to make descending order when calling posts in views
 
     def __str__(self):
@@ -201,7 +201,7 @@ class Comment(models.Model):
         verbose_name="review",
         to='feed.Review',
         on_delete=models.CASCADE,
-        related_name="user_restaurants",
+        related_name="comment",
         null=True
     )
     content = models.TextField(
@@ -214,7 +214,7 @@ class CommentLike(models.Model):
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="user_review_likes",
+        related_name="user_comment_likes",
         null=True
     )
     comment = models.ForeignKey(

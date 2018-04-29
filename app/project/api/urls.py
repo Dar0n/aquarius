@@ -1,5 +1,5 @@
-# from django.urls import path
-# from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 #
 # from project.api.views.auth import PasswordResetView, PasswordResetValidationView
 # from project.api.views.feed import FeedDisplayView, UserGetAllPosts, PostFromFollowingsView, ListFriendsPostsView
@@ -10,12 +10,13 @@
 #     AllUsersView, GetUserProfile, UserFriendRequests, SendFriendRequestView, PendingFriendRequestsView, \
 #     AcceptFriendRequestView, RejectFriendRequestView, ListAllFriendsView, UnfriendAFriendsView, UserProfileView
 
+
 app_name = "api"
 
 urlpatterns = [
-    # path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    # path('api/auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     # path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
     # path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
     # path("feed/", FeedDisplayView.as_view(), name="feed_display"),
