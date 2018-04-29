@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from project.feed.models import Review
+# from project.feed.models import Review
 
 User = get_user_model()
 
