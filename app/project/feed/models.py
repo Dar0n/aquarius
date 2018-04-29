@@ -76,7 +76,8 @@ class Review(models.Model):
         return self.content[:50]
 
     # This part here is to automatically create new ReviewUpdateHistory ovject every time there are changes to
-    # the model. Explanation here: https://stackoverflow.com/questions/19232352/django-multiple-update-dates-in-one-field?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+    # the model. Explanation here: https://stackoverflow.com/questions/19232352/django-multiple-update-dates-in-one-
+    # field?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
     def save(self, *args, **kwargs):
         super(Review, self).save(*args, **kwargs)
         ReviewUpdateHistory.objects.create(review=self, updated=timezone.now())
@@ -166,7 +167,7 @@ class Restaurant(models.Model):
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # validators should be a list
     email = models.EmailField('Email', max_length=70, blank=True)
-    image = models.CharField(max_length=200, null=True,)
+    image = models.CharField(max_length=200, null=True, )
 
     # opening_hours
     # Price level
@@ -226,8 +227,6 @@ class CommentLike(models.Model):
     class Meta:
         verbose_name = "Comment like"
         verbose_name_plural = "Comment likes"  # overwriting defaults
-
-
 
 # class FriendshipRelation(models.Model):
 #     PENDING_REQUEST = 1
