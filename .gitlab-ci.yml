@@ -3,8 +3,8 @@ stages:
   - build
   - lint
   - push
+  - cleanup
 #   - deploy
-   - cleanup
 
 before_script:
   - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
@@ -18,7 +18,7 @@ pull:
 build:
   stage: build
   script:
-    - docker build --tag="$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" --cache-from="$CI_REGISTRY_IMAGE":latest --pull . 
+    - docker build --tag="$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" --cache-from="$CI_REGISTRY_IMAGE":latest --pull .
 
 lint:
   stage: lint
@@ -54,8 +54,8 @@ push latest:
 
 # removing last image
 # if fail happens, not-finished image can remain, so we have to clen it up
- cleanup:
-   stage: cleanup
-   script:
+cleanup:
+  stage: cleanup
+  script:
      - docker rmi -f "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME"
      - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.ci.yml down --remove-orphans
