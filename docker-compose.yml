@@ -1,5 +1,13 @@
 version: '2'
 services:
+  database:
+    image: postgres:9.6.1
+    restart: always
+    env_file:
+      - dev.env
+    volumes:
+      - database:/var/lib/postgresql/data
+
   app:
     image: registry.gitlab.propulsion-home.ch/full-stack/batch-2018-03/group-projects/aquarius:latest
     restart: always
