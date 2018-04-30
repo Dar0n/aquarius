@@ -18,7 +18,6 @@ class GetUpdateUserProfileView(GenericAPIView):
     serializer_class = UserSensitiveInfoSerializer
     permission_classes = [
         IsAuthenticated,
-        IsUserOrReadOnly,
     ]
 
     def get(self, request, **kwargs):
@@ -34,7 +33,7 @@ class GetUpdateUserProfileView(GenericAPIView):
 # @route   GET api/users/list/
 # @desc    Get all users
 # @access  Public
-class AllUsersView(APIView):
+class GetAllUsersView(APIView):
     permission_classes = [
         IsAuthenticated,
     ]
@@ -46,7 +45,7 @@ class AllUsersView(APIView):
 # @route   GET api/users/?search=<str:search_string>
 # @desc    Search for a user
 # @access  Public
-class UserProfileView(APIView):
+class GetUserView(APIView):
     permission_classes = [
         IsAuthenticated,
     ]
@@ -58,7 +57,7 @@ class UserProfileView(APIView):
 # @route   GET api/users/<int:user_id>/
 # @desc    Get specific user profile
 # @access  Public
-class UserProfileView(APIView):
+class GetSpecificUserProfileView(APIView):
     permission_classes = [
         IsAuthenticated,
     ]

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -6,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 # @route   POST api/restaurants/new/
 # @desc    Post new restaurant
 # @access  Public
+from project.api.serializers.restaurants import RestaurantRatingSerializer
+from project.api.serializers.users import UserSerializer
 from project.restaurant.feed.models import Restaurant
 
 
@@ -20,7 +23,7 @@ class PostNewRestaurantView(APIView):
     def post(self, request, **kwargs):
         return Response(self.get_serializer(request.restaurant).data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+        restaurant = serializer.save()
         return Response(self.get_serializer(restaurant).data)
 
 
@@ -33,7 +36,7 @@ class GetAllRestaurantsView(APIView):
     ]
 
     def get(self, request):
-        return Response(RestaurantSerializer(request.user.all(), many=True).data)
+        return Response(RestaurantRatingSerializer(request.user.all(), many=True).data)
 
 
 # @route   GET api/restaurants/?search=<str:search_string/>
@@ -45,7 +48,7 @@ class GetRestaurantByNameView(APIView):
     ]
 
     def get(self, user_id):
-        return Response(RestaurantSerializer(Restaurant.objects.filter(user_id)).data)
+        return Response(RestaurantRatingSerializer(Restaurant.objects.filter(user_id)).data)
 
 
 # @route   GET api/restaurants/<int:category_id/>
