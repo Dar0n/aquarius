@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from project.api.views.registration import RegistrationView, RegistrationValidationView
 #
-# from project.api.views.auth import PasswordResetView, PasswordResetValidationView
+from project.api.views.password_reset import PasswordResetView, PasswordResetValidationView
 # from project.api.views.feed import FeedDisplayView, UserGetAllPosts, PostFromFollowingsView, ListFriendsPostsView
 # from project.api.views.posts import PostGetUpdateDeleteView, PostCreateView, PostThatUserLiked, PostLikeDislikeView, \
 #     ShareAPostView
@@ -19,8 +19,8 @@ urlpatterns = [
     path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path("registration/", RegistrationView.as_view(), name="registration"),
     path("registration/validation/", RegistrationValidationView.as_view(), name="registration-validation"),
-    # path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
-    # path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
+    path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
+    path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
     # path("feed/", FeedDisplayView.as_view(), name="feed_display"),
     # path("feed/<int:user_id>/", UserGetAllPosts.as_view(), name="user-all-posts"),
     # path("feed/followings/", PostFromFollowingsView.as_view(), name="all-posts-from-followers"),
