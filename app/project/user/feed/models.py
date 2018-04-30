@@ -31,4 +31,3 @@ class Profile(models.Model):
             break
         self.registration_code = code
         self.save()
-

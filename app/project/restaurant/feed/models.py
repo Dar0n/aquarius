@@ -104,7 +104,6 @@ class ReviewLike(models.Model):
         ]
 
 
-
 class Restaurant(models.Model):
     user = models.ForeignKey(
         verbose_name="user",
@@ -137,6 +136,7 @@ class Restaurant(models.Model):
         on_delete=models.SET_NULL,
         null=True,
     )
+
     # opening_hours
     # Price level
 
