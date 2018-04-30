@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
 from rest_framework import serializers
 
 User = get_user_model()
