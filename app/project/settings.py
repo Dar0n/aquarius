@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django_countries',
     'corsheaders',
     'rest_framework',
-    'project.feed',
+    'project.restaurant',
+    'project.user',
     'project.api',
 ]
 
