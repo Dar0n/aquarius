@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import serializers
 
 
 # @route   POST api/restaurants/new/
@@ -22,6 +23,7 @@ class PostNewRestaurantView(APIView):
 
     def post(self, request, **kwargs):
         return Response(self.get_serializer(request.restaurant).data)
+        serializer = self.get_serializer(request.user, data=request.data)
         serializer.is_valid(raise_exception=True)
         restaurant = serializer.save()
         return Response(self.get_serializer(restaurant).data)

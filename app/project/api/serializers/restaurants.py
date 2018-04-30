@@ -11,5 +11,3 @@ class RestaurantRatingSerializer(serializers.ModelSerializer):
         model = Restaurant
         fields = ["id", "name", "user"]
         read_only_fields = fields
-
-
