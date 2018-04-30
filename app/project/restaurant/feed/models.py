@@ -119,6 +119,7 @@ class Restaurant(models.Model):
     city = models.CharField(max_length=50)
     country = CountryField()
     zip = models.CharField(
+        max_length=9,
         verbose_name='ZIP',
         null=True
     )
