@@ -1,5 +1,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
+from project.api.views.comments import CreateCommentOnReviewView
 from project.api.views.registration import RegistrationView, RegistrationValidationView
 #
 # from project.api.views.auth import PasswordResetView, PasswordResetValidationView
@@ -19,6 +21,8 @@ urlpatterns = [
     path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path("registration/", RegistrationView.as_view(), name="registration"),
     path("registration/validation/", RegistrationValidationView.as_view(), name="registration-validation"),
+
+    path("review/comment/new/<int:pk>/", CreateCommentOnReviewView.as_view(), name="comment-on-review"),
     # path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
     # path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
     # path("feed/", FeedDisplayView.as_view(), name="feed_display"),

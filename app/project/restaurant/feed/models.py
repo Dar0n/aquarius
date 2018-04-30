@@ -129,12 +129,13 @@ class Restaurant(models.Model):
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # validators should be a list
     email = models.EmailField('Email', max_length=70, blank=True)
-    image = models.ImageField(upload_to='restaurants/', null=True, )
+    image = models.ImageField(upload_to='restaurants/', null=True, blank=True)
     category = models.ForeignKey(
         verbose_name='category',
         to='restaurant.Category',
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
     )
 
     # opening_hours
@@ -160,7 +161,7 @@ class CommentUpdateHistory(models.Model):
     )
 
 
-class Comment(models.Model):
+class Comment(TimeStampedModel):
     user = models.ForeignKey(
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,
