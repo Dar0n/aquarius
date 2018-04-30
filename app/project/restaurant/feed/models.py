@@ -3,12 +3,13 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
-from project.api.helpers import code_generator
 from django_countries.fields import CountryField
 from django.core.validators import RegexValidator, MaxValueValidator
 
-
 # This class is used for keeping track of updates history for reviews
+from django_extensions.db.models import TimeStampedModel
+
+
 class ReviewUpdateHistory(models.Model):
     review = models.ForeignKey(
         'Review',
@@ -20,7 +21,7 @@ class ReviewUpdateHistory(models.Model):
     )
 
 
-class Review(models.Model):
+class Review(TimeStampedModel):
     content = models.TextField(
         verbose_name="content"
     )
@@ -39,12 +40,9 @@ class Review(models.Model):
         decimal_places=0,
         null=True
     )
-
-    # restaurant = ...
-    # M:1 relation with Restaurant, specified on Restaurant model
     restaurant = models.ForeignKey(
         verbose_name="restaurant",
-        to="feed.Restaurant",  # appname.modelname - without precise internal structure
+        to="restaurant.Restaurant",  # appname.modelname - without precise internal structure
         on_delete=models.CASCADE,
         related_name="review",
         null=True,
@@ -57,7 +55,7 @@ class Review(models.Model):
     # review_like = ...
     # M:1 relation with ReviewLike, specified on ReviewLike model
 
-    # TODO! make sure we don't need 'created' filed when using ReviewUpdateHistory model
+    # TODO! make sure we don't need 'created' field when using ReviewUpdateHistory model
     # created = models.DateTimeField(
     #     verbose_name="created",
     #     auto_now_add=True,
@@ -93,7 +91,7 @@ class ReviewLike(models.Model):
     )
     review = models.ForeignKey(
         verbose_name="review",
-        to="feed.Review",  # appname.modelname - without precise internal structure
+        to="restaurant.Review",  # appname.modelname - without precise internal structure
         on_delete=models.CASCADE,
         related_name="review_likes",
     )
@@ -104,41 +102,6 @@ class ReviewLike(models.Model):
         unique_together = [
             ("user", "review"),
         ]
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(
-        verbose_name="user",
-        to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="user_profile"
-    )
-
-    # followings = models.ManyToManyField(
-    #     verbose_name="user_that_you_follow",
-    #     to=settings.AUTH_USER_MODEL,
-    #     related_name="followers",
-    #     blank=True,
-    # )
-
-    def __str__(self):
-        return self.user.username
-
-    registration_code = models.CharField(
-        verbose_name="registration code",
-        max_length=15,
-        unique=True,
-        default=code_generator,
-    )
-
-    def generate_new_code(self):
-        while True:
-            code = code_generator()
-            if Profile.objects.filter(registration_code=code):
-                continue
-            break
-        self.registration_code = code
-        self.save()
 
 
 class Restaurant(models.Model):
@@ -154,27 +117,35 @@ class Restaurant(models.Model):
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     country = CountryField()
-    zip = models.DecimalField(
+    zip = models.CharField(
+        max_length=9,
         verbose_name='ZIP',
-        max_digits=7,
-        decimal_places=0,
         null=True
     )
-    website = models.CharField('Website', max_length=150, null=True)
+    website = models.URLField('Website', max_length=150, null=True)
     # next line is creating validator for regex which will be then used for phone number charfiled.
     # This will make sure that the entered value will follow desired pattern
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # validators should be a list
     email = models.EmailField('Email', max_length=70, blank=True)
-    image = models.CharField(max_length=200, null=True, )
+    image = models.ImageField(upload_to='restaurants/', null=True, )
+    category = models.ForeignKey(
+        verbose_name='category',
+        to='restaurant.Category',
+        on_delete=models.SET_NULL,
+        null=True,
+    )
 
     # opening_hours
     # Price level
-    # category = foreignkey
 
     def __str__(self):
         return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
 
 
 # This class is used for keeping track of updates history for comments
@@ -199,7 +170,7 @@ class Comment(models.Model):
     )
     review = models.ForeignKey(
         verbose_name="review",
-        to='feed.Review',
+        to='restaurant.Review',
         on_delete=models.CASCADE,
         related_name="comment",
         null=True
@@ -219,7 +190,7 @@ class CommentLike(models.Model):
     )
     comment = models.ForeignKey(
         verbose_name="comment",
-        to="feed.Comment",  # appname.modelname - without precise internal structure
+        to="restaurant.Comment",  # appname.modelname - without precise internal structure
         on_delete=models.CASCADE,
         related_name="comment_likes",
     )
@@ -227,38 +198,3 @@ class CommentLike(models.Model):
     class Meta:
         verbose_name = "Comment like"
         verbose_name_plural = "Comment likes"  # overwriting defaults
-
-# class FriendshipRelation(models.Model):
-#     PENDING_REQUEST = 1
-#     FRIENDSHIP = 2
-#     STATUS_CHOICES = (
-#         (PENDING_REQUEST, 'Pending request for friendship'),
-#         (FRIENDSHIP, 'Friendship'),
-#     )
-#     from_person = models.ForeignKey(
-#         verbose_name="friendship_from_person",
-#         to=settings.AUTH_USER_MODEL,
-#         on_delete=models.CASCADE,
-#         related_name="friendships_from_user",
-#     )
-#     to_person = models.ForeignKey(
-#         verbose_name="friendship_to_person",
-#         to=settings.AUTH_USER_MODEL,
-#         on_delete=models.CASCADE,
-#         related_name="friendships_to_user",
-#     )
-#     status = models.IntegerField(
-#         choices=STATUS_CHOICES,
-#         blank=True,
-#         null=True,
-#     )
-#
-#     class Meta:
-#         verbose_name = "Friendship"
-#         verbose_name_plural = "Friendship relations"  # overwriting defaults
-#         unique_together = [
-#             ("from_person", "to_person"),
-#         ]
-#
-#     def __str__(self):
-#         return f"{self.from_person.username} {self.status} friend with {self.to_person.username}"
