@@ -1,5 +1,4 @@
 from django.db import models
-from django_extensions.db.models import TimeStampedModel
 
 from django.conf import settings
 from django.utils import timezone
@@ -8,6 +7,9 @@ from django_countries.fields import CountryField
 from django.core.validators import RegexValidator, MaxValueValidator
 
 # This class is used for keeping track of updates history for reviews
+from django_extensions.db.models import TimeStampedModel
+
+
 class ReviewUpdateHistory(models.Model):
     review = models.ForeignKey(
         'Review',
@@ -40,7 +42,7 @@ class Review(TimeStampedModel):
     )
     restaurant = models.ForeignKey(
         verbose_name="restaurant",
-        to="feed.Restaurant",  # appname.modelname - without precise internal structure
+        to="restaurant.Restaurant",  # appname.modelname - without precise internal structure
         on_delete=models.CASCADE,
         related_name="review",
         null=True,
@@ -89,7 +91,7 @@ class ReviewLike(models.Model):
     )
     review = models.ForeignKey(
         verbose_name="review",
-        to="feed.Review",  # appname.modelname - without precise internal structure
+        to="restaurant.Review",  # appname.modelname - without precise internal structure
         on_delete=models.CASCADE,
         related_name="review_likes",
     )
@@ -130,6 +132,9 @@ class Restaurant(models.Model):
     image = models.ImageField(upload_to='restaurants/', null=True, )
     category = models.ForeignKey(
         verbose_name='category',
+        to='restaurant.Category',
+        on_delete=models.SET_NULL,
+        null=True,
     )
     # opening_hours
     # Price level
@@ -164,7 +169,7 @@ class Comment(models.Model):
     )
     review = models.ForeignKey(
         verbose_name="review",
-        to='feed.Review',
+        to='restaurant.Review',
         on_delete=models.CASCADE,
         related_name="comment",
         null=True
@@ -184,7 +189,7 @@ class CommentLike(models.Model):
     )
     comment = models.ForeignKey(
         verbose_name="comment",
-        to="feed.Comment",  # appname.modelname - without precise internal structure
+        to="restaurant.Comment",  # appname.modelname - without precise internal structure
         on_delete=models.CASCADE,
         related_name="comment_likes",
     )
