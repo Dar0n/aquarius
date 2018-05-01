@@ -89,7 +89,6 @@ class RegistrationValidationSerializer(serializers.Serializer):
             })
         return data
 
-
     def save(self, validated_data):
         user = validated_data.get('email')
         user.username = validated_data.get('username')

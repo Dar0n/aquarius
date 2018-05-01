@@ -29,12 +29,12 @@ class Profile(models.Model):
     things_i_love = models.TextField(
         verbose_name="things_i_love",
         default='',
-        null = True,
+        null=True,
         blank=True,
     )
     description = models.TextField(
         verbose_name="description",
-        null = True,
+        null=True,
     )
     joined_date = models.DateTimeField(
         verbose_name="joined_date",
