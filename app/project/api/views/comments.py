@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from project.api.serializers.comments import CommentSerializer
 from project.restaurant.feed.models import Review
 
+
 class CreateCommentOnReviewView(GenericAPIView):
     permission_classes = [
         IsAuthenticated,
