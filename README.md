@@ -2,7 +2,7 @@
 
 ## History
 
-So we have recently discovered that Yelp wants to move his current stack to a new one based on Python/Dajngo and ES6/React, they also want to replace thier old fashioned Bootstrap UI framework with a supercool UI. 
+So we have recently discovered that Yelp wants to move his current stack to a new one based on Python/Django and ES6/React, they also want to replace thier old fashioned Bootstrap UI framework with a supercool UI. 
 
 For this task they will hire a whole new team and selection process is starting now. A prototype following their wireframes is mandatory for all those that want to participate.
 
@@ -76,7 +76,7 @@ This is a list of features that Yelp would like to see in all web prototypes:
 - Like/Remove like a restaurant review.
 - Crate a comment on a restaurant review.
 - Like/Remove like a comment.
-- - Reset his password.
+- Reset his password.
 - Update his userprofile.
 - Delete his profile.
 - Delete the resturant he created.
@@ -148,7 +148,7 @@ This is a list of features that Yelp would like to see in all web prototypes:
 ---
 ### REST API backend endpoints
 
-
+---
 **Registration**
 
 - `/api/registration/` **POST**: Register new user by asking for an email (send email validation code).
@@ -164,36 +164,43 @@ This is a list of features that Yelp would like to see in all web prototypes:
 - `/api/auth/password-reset/validate/` **POST**: Validate password reset token and set new password for the user.
 
 ---
+**Search**
+- `/api/search/` **POST**: Search for 'restaurants', 'reviews' or 'users'. {type: 'restaurants', 'search_string': 'Pub'}
+
+---
+**Home**
+- `/api/home/` **GET**: Get a list of 4 best reared restaurants for the home screen.
+
+---
 **Restaurant**
-- `/api/resturants/new/` **POST**": Create a new restaurant.
 - `/api/restaurants/` **GET**: Get the list of all the restaurant.
-- `/api/restaurants/?search=<str:search_string/>` **GET**: Get the resturant/s by providing the name/address the restaurant.
-- `/api/restaurants/catrgory/<int:category_id/>` **GET**: Get the all the resturants by category.
-- `/api/restaurants/user/<int:user_id/>` **GET**: Get the all the resturants created by a specific user in chronological order.
-- `/api/resturants/<int:id/>` **POST**: Update a resturant by id (only by owner or resturant admin).
-- `/api/resturants/<int:id/>` **POST**: Delete a resturant by id (only by owner or resturant admin).
-- `/api/resturants/<int:id/>` **GET**: Get the details of a restaurant providing the id of the restaurant.
+- `/api/resturants/new/` **POST**": Create a new restaurant.
+- `/api/restaurants/catrgory/<int:category_id>/` **GET**: Get the all the resturants by category.
+- `/api/restaurants/user/<int:user_id>/` **GET**: Get the all the resturants created by a specific user in chronological order.
+- `/api/resturants/<int:id>/` **GET**: Get the details of a restaurant providing the id of the restaurant.
+- `/api/resturants/<int:id>/` **POST**: Update a resturant by id (only by owner or resturant admin).
+- `/api/resturants/<int:id>/` **DELETE**: Delete a resturant by id (only by owner or resturant admin).
 
 ---
 **Reviews**
-- `/api/reviews/new_review/<int:restaurant_id/>` **POST**: Create new review for a restaurant.
-- `/api/reviews/restaurant/<int:restaurant_id>` **GET**: Get the list of the reviews for a single restaurant.
-- `/api/reviews/user/<int:user_id>` **GET**: Get the list of the reviews by a single user.
-- `/api/reviews/<int:review_id/>` **GET**: Get a specific review by ID and display all the information.
-- `/api/reviews/<int:review_id/>` **POST**: Update a specific review (only by owner).
-- `/api/reviews/<int:review_id/>` **DELETE**: Delete a specific review (only by owner).
-- `/api/reviews/like/<int:review_id/>` **POST**: Like a review.
-- `/api/reviews/like/<int:review_id/>` **DELETE**: Remove like from the review.
+- `/api/reviews/new/<int:restaurant_id>/` **POST**: Create new review for a restaurant.
+- `/api/reviews/restaurant/<int:restaurant_id>/` **GET**: Get the list of the reviews for a single restaurant.
+- `/api/reviews/user/<int:user_id>/` **GET**: Get the list of the reviews by a single user.
+- `/api/reviews/<int:review_id>/` **GET**: Get a specific review by ID and display all the information.
+- `/api/reviews/<int:review_id>/` **POST**: Update a specific review (only by owner).
+- `/api/reviews/<int:review_id>/` **DELETE**: Delete a specific review (only by owner).
+- `/api/reviews/like/<int:review_id>/` **POST**: Like a review.
+- `/api/reviews/like/<int:review_id>/` **DELETE**: Remove like from the review.
 - `/api/reviews/likes/` **GET**: Get the list of the reviews the current user liked.
 - `/api/reviews/comments/` **GET**: Get the list of the reviews the current user commented.
 
 ---
 **Comments**
-- `/api/review/comment/new/<int:review_id/>` **POST**: Comment on the review.
-- `/api/review/comment/<int:review_id/>` **DELETE**: Delete the comment on the review.
-- `/api/review/comment/like/<int:comment_id/>` **POST**: Like a comment.
-- `/api/review/comment/like/<int:comment_id/>` **DELETE**: Remove the like from the comment.
-- `/api/review/comment/<int:user_id/>` **GET**: Get all the comments from a single user.
+- `/api/review/comment/<int:user_id>/` **GET**: Get all the comments from a single user.
+- `/api/review/comment/new/<int:review_id>/` **POST**: Comment on the review.
+- `/api/review/comment/<int:review_id>/` **DELETE**: Delete the comment on the review.
+- `/api/review/comment/like/<int:comment_id>/` **POST**: Like a comment.
+- `/api/review/comment/like/<int:comment_id>/` **DELETE**: Remove the like from the comment.
 
 ---
 **Categories**
@@ -204,8 +211,8 @@ This is a list of features that Yelp would like to see in all web prototypes:
 - `/api/me/` **GET**: Get the userprofile.
 - `/api/me/` **POST**: Update the userprofile.
 - `/api/users/list/` **GET**: Get all users.
-- `/api/users/?search=<str:search_string>` **GET**: Search for a user.
-- `/api/users/<int:user_id>` **GET**: specific userprofile.
+- `/api/users/?search=<str:search_string>/` **GET**: Search for a user.
+- `/api/users/<int:user_id>/` **GET**: specific userprofile.
 
 ---
 
@@ -225,7 +232,7 @@ This is a list of features that Yelp would like to see in all web prototypes:
 ### Deployment
 
 - You need to be able to deploy your project with one click on **gitlab** to your instance on digitalocean.
-- Nginx and Postgres aatabase are running in seperate containers connected to your main app container.
+- Nginx and Postgres database are running in seperate containers connected to your main app container.
 
 ---
 **Reminder** The classroom is open 24/7! 
