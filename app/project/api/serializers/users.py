@@ -1,67 +1,72 @@
 from django.contrib.auth import get_user_model
+from django.core.mail import EmailMessage
 from rest_framework import serializers
 
-from project.user.feed.models import ProfileUser
+from project.restaurant.feed.models import Restaurant, Review, Comment
+from project.user.feed.models import Profile
 
 User = get_user_model()
 
 
 class CreateProfileSerializer(serializers.ModelSerializer):
-    model = ProfileUser
+    model = Profile
     fields = ("id", "first_name", "last_name", "email", "username", "user_profile")
 
     def post(self, validated_data):
-        user_profile = ProfileUser.objects.create(**validated_data)
+        user_profile = Profile.objects.create(**validated_data)
         return user_profile
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProfileUser
-        fields = ["id", "first_name", "last_name", "email", "username", "user_profile"]
+        model = Profile
+        fields = ['id', 'user', 'things_i_love', 'description', 'joined_date', 'profile_image']
         read_only_fields = fields
 
 
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ProfileUser
-        fields = ["id", "first_name", "last_name"]
+        model = Restaurant
+        fields = ['id', 'content', 'rating', 'created', 'modified', 'user', 'name', 'likes', 'comments']
         read_only_fields = fields
 
+    @staticmethod
+    def send_notification(**kwargs):
+        requester = kwargs.get('reviewer')
+        receiver = kwargs.get('reviewed')
+        message = EmailMessage(
+            subject='You have been reviewed',
+            body=f'The user {requester.username} has reviewed your restaurant',
+            to=[receiver.email],
+        )
+        message.send()
 
-class AdvancedUserSerializer(UserSerializer):
-    user_profile = ProfileUser.objects.findOne()
-    serializer = UserProfileSerializer(many=False)
-
-    class Meta:
-        model = ProfileUser
-        fields = ["id", "first_name", "last_name", "user_profile"]
-        read_only_fields = fields
-
-
-class UserReviewLikesSerializer(UserSerializer):
-    comment_likes = serializers.SerializerMethodField(
-        read_only=True,
-    )
-
-    def get_review_likes(self, user):
-        return sum([p.likes.count() for p in user.posts.all()])
+    def save(self, **kwargs):
+        f_request = Review.objects.create(**kwargs)
+        self.send_notification(**kwargs)
+        return f_request
 
 
-class UserSensitiveInfoSerializer(serializers.ModelSerializer):
-    user_profile = UserProfileSerializer(read_only=True)
+class CreateCommentsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ProfileUser
-        fields = ["id", "first_name", "last_name", "email", "username", "user_profile"]
-        read_only_fields = ["id", "username", "user_profile"]
+        model = Profile
+        fields = ("id", "user", "review", "content")
 
-    def validate_email(self, value):
-        try:
-            ProfileUser.objects.get(email=value)
-            raise serializers.ValidationError(
-                "User with this email address already exists."
-            )
-        except ProfileUser.DoesNotExist:
-            return value
+    @staticmethod
+    def post(validated_data):
+        user_comment = Comment.objects.create(**validated_data)
+        return user_comment
+
+
+class CreateCommentsOnReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = ("id", "user", "review", "content", "date_created", "date_modified", "likes")
+
+    @staticmethod
+    def post(validated_data):
+        user_comment = Comment.objects.create(**validated_data)
+        return user_comment

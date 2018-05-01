@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from project.api.serializers.users import UserSerializer, AdvancedUserSerializer
+from project.api.serializers.users import UserSerializer
 
 User = get_user_model()
 
@@ -13,7 +13,7 @@ User = get_user_model()
 # @desc    Get and update user profile
 # @access  Public
 class GetUpdateUserProfileView(GenericAPIView):
-    serializer_class = AdvancedUserSerializer
+    serializer_class = UserSerializer
     permission_classes = [
         IsAuthenticatedOrReadOnly,
     ]
@@ -32,12 +32,14 @@ class GetUpdateUserProfileView(GenericAPIView):
 # @desc    Get all users
 # @access  Public
 class GetAllUsersView(APIView):
+    serializer_class = UserSerializer
+    # queryset = User.objects.all()
     permission_classes = [
         IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, request):
-        return Response(UserSerializer(request.user.all(), many=True).data)
+        return Response(UserSerializer(User.objects.all()).data)
 
 
 # @route   GET api/users/?search=<str:search_string>
@@ -49,7 +51,8 @@ class GetUserView(APIView):
     ]
 
     def get(self, user_id):
-        return Response(UserSerializer(User.objects.filter(user_id)).data)
+        users = User.objects.all()
+        return Response(users)
 
 
 # @route   GET api/users/<int:user_id>/

@@ -1,12 +1,11 @@
-from profile import Profile
-
 from django.core.validators import RegexValidator
 from django.db import models
+
 from django.conf import settings
 from project.api.helpers import code_generator
 
 
-class ProfileUser(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,

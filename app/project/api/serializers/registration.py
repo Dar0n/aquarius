@@ -24,8 +24,8 @@ class RegistrationSerializer(serializers.Serializer):
     @staticmethod
     def send_registration_email(email, code):
         message = EmailMessage(
-            subject="Social feed registration",
-            body=f"This is your registration code =>> {code}",
+            subject="Luna registration",  # backend is http://aquarius.propulsion-learn.ch/backend/api/
+            body=f"This is your registration link =>> http://aquarius.propulsion-learn.ch/registration/validation?code={code}&email={email}",
             to=[email],
             # here we put [] around email so that we could use
             # this for multiple user emails. Otherwise that would not work.

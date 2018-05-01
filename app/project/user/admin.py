@@ -1,4 +1,4 @@
 from django.contrib import admin
-from project.user.feed.models import ProfileUser
+from project.user.feed.models import Profile
 
-admin.site.register(ProfileUser)
+admin.site.register(Profile)
