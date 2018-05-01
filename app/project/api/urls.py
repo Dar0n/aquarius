@@ -4,7 +4,7 @@ from project.api.views.comments import CreateCommentOnReviewView, DeleteCommentO
     LikeRemoveLikeCommentOnReviewView
 from project.api.views.categories import GetCategoriesView
 from project.api.views.registration import RegistrationView, RegistrationValidationView
-
+from project.api.views.users import GetUpdateUserProfileView, GetAllUsersView, GetSpecificUserProfileView
 from project.api.views.password_reset import PasswordResetView, PasswordResetValidationView
 from project.api.views.reviews import RestaurantReviewsView, ReviewCreateView, ReviewByUserView, \
     GetPostDeleteReviewView, ReviewLikeDislikeView, LikedReviewsView, CommentedReviewsView
@@ -17,6 +17,9 @@ urlpatterns = [
     path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path("registration/", RegistrationView.as_view(), name="registration"),
     path("registration/validation/", RegistrationValidationView.as_view(), name="registration-validation"),
+    path("users/<int:user_id>/", GetSpecificUserProfileView.as_view(), name="get-user-profile"),
+    path("users/list/", GetAllUsersView.as_view(), name="list-all-users"),
+    path("me/", GetUpdateUserProfileView.as_view(), name="show-update-userprofile"),
     path("review/comment/new/<int:pk>/", CreateCommentOnReviewView.as_view(), name="comment-on-review"),
     path("review/comment/<int:pk>/", DeleteCommentOnReviewView.as_view(), name="delete-comment-on-review"),
     path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="like-comment"),
