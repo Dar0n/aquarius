@@ -1,15 +1,8 @@
-from rest_framework.generics import GenericAPIView, ListAPIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
-# from project.api.permissions import IsOwnerOrReadOnly
-# from project.api.base import GetObjectMixin
-
-from project.api.serializers import comments
 from project.api.serializers.comments import CommentSerializer
 from project.restaurant.feed.models import Review
-
-
 
 class CreateCommentOnReviewView(GenericAPIView):
     permission_classes = [
