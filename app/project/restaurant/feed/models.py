@@ -152,19 +152,7 @@ class Category(models.Model):
         return self.name
 
 
-# This class is used for keeping track of updates history for comments
-class CommentUpdateHistory(models.Model):
-    comment = models.ForeignKey(
-        'Comment',
-        on_delete=models.CASCADE,
-
-    )
-    updated = models.DateTimeField(
-        verbose_name='last_update',
-    )
-
-
-class Comment(models.Model):
+class Comment(TimeStampedModel):
     user = models.ForeignKey(
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,
