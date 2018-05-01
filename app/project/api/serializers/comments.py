@@ -4,7 +4,9 @@ from project.restaurant.feed.models import Comment
 
 User = get_user_model()
 
+
 class CommentSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Comment
         fields = ['id', 'content', 'created', 'modified', 'review', 'user']
