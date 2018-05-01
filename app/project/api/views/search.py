@@ -15,10 +15,8 @@ class SearchListView(ListAPIView):
         search_string = self.request.query_params.get('search')
         if search_string:
             queryset = queryset.filter(
-                Q(user__contains=search_string) |
+                Q(username__contains=search_string) |
                 Q(restaurant__contains=search_string) |
-                Q(first_name__contains=search_string) |
-                Q(last_name__contains=search_string) |
                 Q(review__contain=search_string)
             )
         return queryset
