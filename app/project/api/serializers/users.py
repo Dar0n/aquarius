@@ -12,7 +12,7 @@ class CreateProfileSerializer(serializers.ModelSerializer):
 
     def post(self, validated_data):
         user_profile = ProfileUser.objects.create(**validated_data)
-        return user_profile;
+        return user_profile
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
