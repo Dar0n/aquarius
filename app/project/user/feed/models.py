@@ -4,18 +4,15 @@ from django.conf import settings
 from project.api.helpers import code_generator
 
 
-class Profile(models.Model):
+class User(models.Model):
     user = models.OneToOneField(
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="user_profile"
+        related_name="user_profile",
     )
     location = models.CharField(
-        verbose_name="location",
-        to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="location"
+        max_length=200,
     )
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',

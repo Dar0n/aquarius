@@ -137,8 +137,21 @@ class Restaurant(models.Model):
         null=True,
     )
 
-    # opening_hours
-    # Price level
+    opening_hours = models.TextField(max_length=100)
+
+    DEFAULT_STATUS = '$'
+    STATUS_CHOICES = [
+        (DEFAULT_STATUS, '$'),
+        ('low', '$'),
+        ('medium', '$$'),
+        ('high', '$$$'),
+    ]
+    status = models.CharField(
+        verbose_name='status',
+        choices=STATUS_CHOICES,
+        default=DEFAULT_STATUS,
+        max_length=100,
+    )
 
     def __str__(self):
         return self.name

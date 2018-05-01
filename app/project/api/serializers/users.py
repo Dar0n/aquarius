@@ -1,19 +1,28 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from project.user.feed.models import Profile
+from project.user.feed.models import User
 
 User = get_user_model()
 
 
-class UserProfileAdditionSerializer(serializers.ModelSerializer):
+class CreateProfileSerializer(serializers.ModelSerializer):
+    model = User
+    fields = ("id", "first_name", "last_name", "email", "username", "user_profile")
+
+    def post(self, validated_data):
+        user_profile = User.objects.create(**validated_data)
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Profile
-        fields = ["id", "followings"]
+        model = User
+        fields = ["id", "first_name", "last_name", "email", "username", "user_profile"]
         read_only_fields = fields
 
 
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
         fields = ["id", "first_name", "last_name"]
@@ -21,36 +30,31 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class AdvancedUserSerializer(UserSerializer):
-    user_profile = UserProfileAdditionSerializer()
-    post_count = serializers.SerializerMethodField(
-        read_only=True,
-    )
+    user_profile = User.objects.findOne()
+    serializer = UserProfileSerializer(many=False)
 
     class Meta:
         model = User
-        fields = ["id", "first_name", "last_name", "post_count", "fame_index", "followers", "user_profile"]
+        fields = ["id", "first_name", "last_name", "user_profile"]
         read_only_fields = fields
 
-    def get_post_count(self, user):
-        return user.posts.count()
 
-
-class UserCommentLikesSerializer(UserSerializer):
+class UserReviewLikesSerializer(UserSerializer):
     comment_likes = serializers.SerializerMethodField(
         read_only=True,
     )
 
-    def get_comment_likes(self, user):
+    def get_review_likes(self, user):
         return sum([p.likes.count() for p in user.posts.all()])
 
 
 class UserSensitiveInfoSerializer(serializers.ModelSerializer):
-    user_profile = UserProfileAdditionSerializer(read_only=True)
+    user_profile = UserProfileSerializer(read_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "first_name", "last_name", "email", "username", "followers", "user_profile"]
-        read_only_fields = ["id", "username", "followers", "user_profile"]
+        fields = ["id", "first_name", "last_name", "email", "username", "user_profile"]
+        read_only_fields = ["id", "username", "user_profile"]
 
     def validate_email(self, value):
         try:

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 # @route   POST api/restaurants/new/
 # @desc    Post new restaurant
@@ -16,9 +16,6 @@ class PostNewRestaurantView(APIView):
         IsAuthenticated,
     ]
 
-    def get(self, request, **kwargs):
-        return Response(self.get_serializer(request.restaurant).data)
-
     def post(self, request, **kwargs):
         return Response(self.get_serializer(request.restaurant).data)
         serializer = self.get_serializer(request.user, data=request.data)
@@ -32,7 +29,7 @@ class PostNewRestaurantView(APIView):
 # @access  Public
 class GetAllRestaurantsView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, request):
@@ -44,7 +41,7 @@ class GetAllRestaurantsView(APIView):
 # @access  Public
 class GetRestaurantByNameView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, user_id):
@@ -56,7 +53,7 @@ class GetRestaurantByNameView(APIView):
 # @access  Public
 class GetRestaurantByCategoryView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, user_id):
@@ -68,7 +65,7 @@ class GetRestaurantByCategoryView(APIView):
 # @access  Public
 class GetRestaurantByUserView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, user_id):
@@ -80,7 +77,7 @@ class GetRestaurantByUserView(APIView):
 # @access  Public
 class GetUpdateDeleteRestaurantByIDView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, user_id):

@@ -1,12 +1,10 @@
 from django.contrib.auth import get_user_model
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from project.api.serializers.user import UserSerializer
-
-from project.api.serializers.users import UserSensitiveInfoSerializer
+from project.api.serializers.users import UserSerializer, AdvancedUserSerializer
 
 User = get_user_model()
 
@@ -15,9 +13,9 @@ User = get_user_model()
 # @desc    Get and update user profile
 # @access  Public
 class GetUpdateUserProfileView(GenericAPIView):
-    serializer_class = UserSensitiveInfoSerializer
+    serializer_class = AdvancedUserSerializer
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, request, **kwargs):
@@ -35,7 +33,7 @@ class GetUpdateUserProfileView(GenericAPIView):
 # @access  Public
 class GetAllUsersView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, request):
@@ -47,7 +45,7 @@ class GetAllUsersView(APIView):
 # @access  Public
 class GetUserView(APIView):
     permission_classes = [
-        IsAuthenticated,
+        IsAuthenticatedOrReadOnly,
     ]
 
     def get(self, user_id):

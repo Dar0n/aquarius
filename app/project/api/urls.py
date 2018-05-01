@@ -9,7 +9,7 @@ from project.api.views.registration import RegistrationView, RegistrationValidat
 # from project.api.views.users import ProfileFollowUnfollowAUser, ProfileFollowingUsersView, ProfileFollowerUsersView, \
 #     AllUsersView, GetUserProfile, UserFriendRequests, SendFriendRequestView, PendingFriendRequestsView, \
 #     AcceptFriendRequestView, RejectFriendRequestView, ListAllFriendsView, UnfriendAFriendsView, UserProfileView
-
+from project.api.views.users import GetUpdateUserProfileView, GetAllUsersView, GetSpecificUserProfileView
 
 app_name = "api"
 
@@ -34,7 +34,7 @@ urlpatterns = [
     # path("<int:user_id>/following/", ProfileFollowingUsersView.as_view(), name="following-users"),
     # path("<int:user_id>/followers/", ProfileFollowerUsersView.as_view(), name="followers"),
     # path("users/", AllUsersView.as_view(), name="list-all-users"),
-    # path("users/<int:user_id>/", GetUserProfile.as_view(), name="get-user-profile"),
+    path("users/<int:user_id>/", GetSpecificUserProfileView.as_view(), name="get-user-profile"),
     # path("users/friendrequests/", UserFriendRequests.as_view(), name="get-user-friend-requests"),
     # path("users/friendrequests/<int:user_id>/", SendFriendRequestView.as_view(), name="send-friend-request"),
     # path("users/friendrequests/pending/", PendingFriendRequestsView.as_view(), name="pending-friend-requests"),
@@ -42,7 +42,7 @@ urlpatterns = [
     #      name="accept-friend-request"),
     # path("users/friendrequests/reject/<int:request_id>/", RejectFriendRequestView.as_view(),
     #      name="reject-friend-request"),
-    # path("users/friends/", ListAllFriendsView.as_view(), name="list-all-friends"),
+    path("users/list/", GetAllUsersView.as_view(), name="list-all-users"),
     # path("users/friends/unfriend/<int:user_id>/", UnfriendAFriendsView.as_view(), name="unfriend-a-friend"),
-    # path("me/", UserProfileView.as_view(), name="show-update-userprofile"),
+    path("me/", GetUpdateUserProfileView.as_view(), name="show-update-userprofile"),
 ]
