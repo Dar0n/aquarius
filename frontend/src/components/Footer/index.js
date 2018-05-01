@@ -34,7 +34,7 @@ class Footer extends Component {
             <Link to='/'><img src={ instagram_logo } alt='Luna-logo'/></Link>
           </div>
         </div>
-        <div className='Footer-copyright'>&copy;Copyright Luna 2018</div>
+        <div className='Footer-copyright'>&copy;Copyright Luna {new Date().getFullYear()}</div>
       </div>
     );
   }

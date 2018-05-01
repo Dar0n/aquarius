@@ -22,19 +22,3 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'email', 'first_name', 'last_name', 'username', 'user_profile']
         read_only_fields = ['id', 'email']
-
-    # @staticmethod
-    # def send_notification(**kwargs):
-    #     requester = kwargs.get('reviewer')
-    #     receiver = kwargs.get('reviewed')
-    #     message = EmailMessage(
-    #         subject='You have been reviewed',
-    #         body=f'The user {requester.username} has reviewed your restaurant',
-    #         to=[receiver.email],
-    #     )
-    #     message.send()
-    #
-    # def save(self, **kwargs):
-    #     f_request = Review.objects.create(**kwargs)
-    #     self.send_notification(**kwargs)
-    #     return f_request
