@@ -32,4 +32,3 @@ urlpatterns = [
     path("reviews/comments/", CommentedReviewsView.as_view(), name="commented-reviews"),
     path("category/list/", GetCategoriesView.as_view(), name='get-list-of-categories'),
 ]
-
