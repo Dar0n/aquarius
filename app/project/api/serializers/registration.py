@@ -5,8 +5,6 @@ from rest_framework import serializers
 User = get_user_model()
 
 
-# TODO modify the body of the email so it prefills the from on validation url
-
 class RegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField(
         label="E-Mail address"

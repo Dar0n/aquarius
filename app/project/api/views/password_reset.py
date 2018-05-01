@@ -1,7 +1,7 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from project.api.serializers.auth import PasswordResetSerializer, PasswordResetValidationSerializer
+from project.api.serializers.password_reset import PasswordResetSerializer, PasswordResetValidationSerializer
 
 
 class PasswordResetView(GenericAPIView):
