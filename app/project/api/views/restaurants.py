@@ -3,14 +3,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
-# @route   POST api/restaurants/new/
-# @desc    Post new restaurant
-# @access  Public
 from project.api.serializers.restaurants import RestaurantRatingSerializer
 from project.api.serializers.users import UserSerializer
 from project.restaurant.feed.models import Restaurant
 
 
+# @route   POST api/restaurants/new/
+# @desc    Post new restaurant
+# @access  Public
 class PostNewRestaurantView(APIView):
     permission_classes = [
         IsAuthenticated,
@@ -44,8 +44,8 @@ class GetRestaurantByNameView(APIView):
         IsAuthenticatedOrReadOnly,
     ]
 
-    def get(self, user_id):
-        return Response(RestaurantRatingSerializer(Restaurant.objects.filter(user_id)).data)
+    def get(self, restaurant_id):
+        return Response(RestaurantRatingSerializer(Restaurant.objects.filter(restaurant_id)).data)
 
 
 # @route   GET api/restaurants/<int:category_id/>
@@ -56,8 +56,8 @@ class GetRestaurantByCategoryView(APIView):
         IsAuthenticatedOrReadOnly,
     ]
 
-    def get(self, user_id):
-        return Response(UserSerializer(User.objects.filter(user_id)).data)
+    def get(self, category_id):
+        return Response(UserSerializer(User.objects.filter(category_id)).data)
 
 
 # @route   GET api/restaurants/<int:user_id/>

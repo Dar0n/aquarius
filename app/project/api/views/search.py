@@ -20,8 +20,3 @@ class SearchListView(ListAPIView):
                 Q(review__contain=search_string)
             )
         return queryset
-
-
-# class UserGetView(RetrieveAPIView):
-#     serializer_class = UserSerializer
-#     queryset = User.objects.all()

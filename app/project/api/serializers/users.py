@@ -9,8 +9,9 @@ User = get_user_model()
 
 
 class CreateProfileSerializer(serializers.ModelSerializer):
-    model = Profile
-    fields = ("id", "first_name", "last_name", "email", "username", "user_profile")
+    class Meta:
+        model = Profile
+        fields = ("id", "first_name", "last_name", "email", "username", "user_profile")
 
     def post(self, validated_data):
         user_profile = Profile.objects.create(**validated_data)
@@ -21,31 +22,30 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['id', 'user', 'things_i_love', 'description', 'joined_date', 'profile_image']
-        read_only_fields = fields
+        # read_only_fields = fields
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
-        model = Restaurant
-        fields = ['id', 'content', 'rating', 'created', 'modified', 'user', 'name', 'likes', 'comments']
-        read_only_fields = fields
+        model = User
+        fields = ['id', 'things_i_love', 'description', 'joined_date', 'profile_image']
+        # read_only_fields = fields
 
-    @staticmethod
-    def send_notification(**kwargs):
-        requester = kwargs.get('reviewer')
-        receiver = kwargs.get('reviewed')
-        message = EmailMessage(
-            subject='You have been reviewed',
-            body=f'The user {requester.username} has reviewed your restaurant',
-            to=[receiver.email],
-        )
-        message.send()
-
-    def save(self, **kwargs):
-        f_request = Review.objects.create(**kwargs)
-        self.send_notification(**kwargs)
-        return f_request
+    # @staticmethod
+    # def send_notification(**kwargs):
+    #     requester = kwargs.get('reviewer')
+    #     receiver = kwargs.get('reviewed')
+    #     message = EmailMessage(
+    #         subject='You have been reviewed',
+    #         body=f'The user {requester.username} has reviewed your restaurant',
+    #         to=[receiver.email],
+    #     )
+    #     message.send()
+    #
+    # def save(self, **kwargs):
+    #     f_request = Review.objects.create(**kwargs)
+    #     self.send_notification(**kwargs)
+    #     return f_request
 
 
 class CreateCommentsSerializer(serializers.ModelSerializer):
