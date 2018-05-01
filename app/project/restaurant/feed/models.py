@@ -149,18 +149,6 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
 
 
-# This class is used for keeping track of updates history for comments
-class CommentUpdateHistory(models.Model):
-    comment = models.ForeignKey(
-        'Comment',
-        on_delete=models.CASCADE,
-
-    )
-    updated = models.DateTimeField(
-        verbose_name='last_update',
-    )
-
-
 class Comment(TimeStampedModel):
     user = models.ForeignKey(
         verbose_name="user",

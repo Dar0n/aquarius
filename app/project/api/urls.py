@@ -1,7 +1,8 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
-from project.api.views.comments import CreateCommentOnReviewView, DeleteCommentOnReviewView
+from project.api.views.comments import CreateCommentOnReviewView, DeleteCommentOnReviewView, \
+    LikeRemoveLikeCommentOnReviewView
 from project.api.views.registration import RegistrationView, RegistrationValidationView
 #
 # from project.api.views.auth import PasswordResetView, PasswordResetValidationView
@@ -14,7 +15,6 @@ from project.api.views.registration import RegistrationView, RegistrationValidat
 
 
 app_name = "api"
-
 urlpatterns = [
     path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
@@ -24,6 +24,10 @@ urlpatterns = [
 
     path("review/comment/new/<int:pk>/", CreateCommentOnReviewView.as_view(), name="comment-on-review"),
     path("review/comment/<int:pk>/", DeleteCommentOnReviewView.as_view(), name="delete-comment-on-review"),
+    path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="like-comment"),
+    path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="delete-comment-on-review"),
+
+
     # path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
     # path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
     # path("feed/", FeedDisplayView.as_view(), name="feed_display"),
@@ -51,3 +55,4 @@ urlpatterns = [
     # path("users/friends/unfriend/<int:user_id>/", UnfriendAFriendsView.as_view(), name="unfriend-a-friend"),
     # path("me/", UserProfileView.as_view(), name="show-update-userprofile"),
 ]
+
