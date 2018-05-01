@@ -1,11 +1,11 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from project.api.views.registration import RegistrationView, RegistrationValidationView
 #
 # from project.api.views.auth import PasswordResetView, PasswordResetValidationView
 # from project.api.views.feed import FeedDisplayView, UserGetAllPosts, PostFromFollowingsView, ListFriendsPostsView
 # from project.api.views.posts import PostGetUpdateDeleteView, PostCreateView, PostThatUserLiked, PostLikeDislikeView, \
 #     ShareAPostView
-# from project.api.views.registration import RegistrationView, RegistrationValidationView
 # from project.api.views.users import ProfileFollowUnfollowAUser, ProfileFollowingUsersView, ProfileFollowerUsersView, \
 #     AllUsersView, GetUserProfile, UserFriendRequests, SendFriendRequestView, PendingFriendRequestsView, \
 #     AcceptFriendRequestView, RejectFriendRequestView, ListAllFriendsView, UnfriendAFriendsView, UserProfileView
@@ -17,6 +17,8 @@ urlpatterns = [
     path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path("registration/", RegistrationView.as_view(), name="registration"),
+    path("registration/validation/", RegistrationValidationView.as_view(), name="registration-validation"),
     # path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
     # path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
     # path("feed/", FeedDisplayView.as_view(), name="feed_display"),
@@ -42,7 +44,5 @@ urlpatterns = [
     #      name="reject-friend-request"),
     # path("users/friends/", ListAllFriendsView.as_view(), name="list-all-friends"),
     # path("users/friends/unfriend/<int:user_id>/", UnfriendAFriendsView.as_view(), name="unfriend-a-friend"),
-    # path("registration/", RegistrationView.as_view(), name="registration"),
-    # path("registration/validation/", RegistrationValidationView.as_view(), name="registration-validation"),
     # path("me/", UserProfileView.as_view(), name="show-update-userprofile"),
 ]
