@@ -1,15 +1,13 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from project.api.views.comments import CreateCommentOnReviewView, DeleteCommentOnReviewView, \
+    LikeRemoveLikeCommentOnReviewView
+from project.api.views.categories import GetCategoriesView
 from project.api.views.registration import RegistrationView, RegistrationValidationView
-#
-# from project.api.views.auth import PasswordResetView, PasswordResetValidationView
-# from project.api.views.feed import FeedDisplayView, UserGetAllPosts, PostFromFollowingsView, ListFriendsPostsView
-# from project.api.views.posts import PostGetUpdateDeleteView, PostCreateView, PostThatUserLiked, PostLikeDislikeView, \
-#     ShareAPostView
-# from project.api.views.users import ProfileFollowUnfollowAUser, ProfileFollowingUsersView, ProfileFollowerUsersView, \
-#     AllUsersView, GetUserProfile, UserFriendRequests, SendFriendRequestView, PendingFriendRequestsView, \
-#     AcceptFriendRequestView, RejectFriendRequestView, ListAllFriendsView, UnfriendAFriendsView, UserProfileView
 from project.api.views.users import GetUpdateUserProfileView, GetAllUsersView, GetSpecificUserProfileView
+from project.api.views.password_reset import PasswordResetView, PasswordResetValidationView
+from project.api.views.reviews import RestaurantReviewsView, ReviewCreateView, ReviewByUserView, \
+    GetPostDeleteReviewView, ReviewLikeDislikeView, LikedReviewsView, CommentedReviewsView
 
 app_name = "api"
 
@@ -19,30 +17,21 @@ urlpatterns = [
     path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path("registration/", RegistrationView.as_view(), name="registration"),
     path("registration/validation/", RegistrationValidationView.as_view(), name="registration-validation"),
-    # path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
-    # path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
-    # path("feed/", FeedDisplayView.as_view(), name="feed_display"),
-    # path("feed/<int:user_id>/", UserGetAllPosts.as_view(), name="user-all-posts"),
-    # path("feed/followings/", PostFromFollowingsView.as_view(), name="all-posts-from-followers"),
-    # path("feed/friends/", ListFriendsPostsView.as_view(), name="list-friends"),
-    # path("posts/<int:post_id>/", PostGetUpdateDeleteView.as_view(), name="post_detail"),
-    # path("posts/new-post/", PostCreateView.as_view(), name="post-create"),
-    # path("posts/likes/", PostThatUserLiked.as_view(), name="liked-posts"),
-    # path("posts/like/<int:post_id>/", PostLikeDislikeView.as_view(), name="like-dislike-a-post"),
-    # path("posts/share-post/<int:post_id>/", ShareAPostView.as_view(), name="share-a-post"),
-    # path("users/follow/<int:user_id>/", ProfileFollowUnfollowAUser.as_view(), name="follow-a-user"),
-    # path("<int:user_id>/following/", ProfileFollowingUsersView.as_view(), name="following-users"),
-    # path("<int:user_id>/followers/", ProfileFollowerUsersView.as_view(), name="followers"),
-    # path("users/", AllUsersView.as_view(), name="list-all-users"),
     path("users/<int:user_id>/", GetSpecificUserProfileView.as_view(), name="get-user-profile"),
-    # path("users/friendrequests/", UserFriendRequests.as_view(), name="get-user-friend-requests"),
-    # path("users/friendrequests/<int:user_id>/", SendFriendRequestView.as_view(), name="send-friend-request"),
-    # path("users/friendrequests/pending/", PendingFriendRequestsView.as_view(), name="pending-friend-requests"),
-    # path("users/friendrequests/accept/<int:request_id>/", AcceptFriendRequestView.as_view(),
-    #      name="accept-friend-request"),
-    # path("users/friendrequests/reject/<int:request_id>/", RejectFriendRequestView.as_view(),
-    #      name="reject-friend-request"),
     path("users/list/", GetAllUsersView.as_view(), name="list-all-users"),
-    # path("users/friends/unfriend/<int:user_id>/", UnfriendAFriendsView.as_view(), name="unfriend-a-friend"),
     path("me/", GetUpdateUserProfileView.as_view(), name="show-update-userprofile"),
+    path("review/comment/new/<int:pk>/", CreateCommentOnReviewView.as_view(), name="comment-on-review"),
+    path("review/comment/<int:pk>/", DeleteCommentOnReviewView.as_view(), name="delete-comment-on-review"),
+    path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="like-comment"),
+    path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="delete-comment-on-review"),
+    path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
+    path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
+    path("reviews/restaurant/<int:restaurant_id>/", RestaurantReviewsView.as_view(), name="restaurant-reviews"),
+    path("reviews/new_review/<int:pk>/", ReviewCreateView.as_view(), name="create-review"),
+    path("reviews/user/<int:user_id>/", ReviewByUserView.as_view(), name="show-reviews-for-user"),
+    path("reviews/<int:review_id>/", GetPostDeleteReviewView.as_view(), name="get-post-delete-review"),
+    path("reviews/like/<int:review_id>/", ReviewLikeDislikeView.as_view(), name="like-dislike-review"),
+    path("reviews/likes/", LikedReviewsView.as_view(), name="liked-reviews"),
+    path("reviews/comments/", CommentedReviewsView.as_view(), name="commented-reviews"),
+    path("category/list/", GetCategoriesView.as_view(), name='get-list-of-categories'),
 ]

@@ -29,7 +29,7 @@ class Review(TimeStampedModel):
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="posts",  # backwords relation - with this reference we can get all the posts from user
+        related_name="reviews",  # backwords relation - with this reference we can get all the posts from user
         null=True
     )
     rating_validator = MaxValueValidator(5, message='The rating must be an integer number between 1 and 5.')
@@ -49,6 +49,10 @@ class Review(TimeStampedModel):
         blank=True,
     )
 
+    # created = models.DateTimeField(
+    #     verbose_name="created",
+    #     auto_now_add=True,
+    # )
     # comment = ...
     # M:1 relation with Comment, specified on Comment model
 
@@ -56,10 +60,6 @@ class Review(TimeStampedModel):
     # M:1 relation with ReviewLike, specified on ReviewLike model
 
     # TODO! make sure we don't need 'created' field when using ReviewUpdateHistory model
-    # created = models.DateTimeField(
-    #     verbose_name="created",
-    #     auto_now_add=True,
-    # )
 
     class Meta:
         verbose_name = 'Review'
@@ -129,12 +129,13 @@ class Restaurant(models.Model):
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # validators should be a list
     email = models.EmailField('Email', max_length=70, blank=True)
-    image = models.ImageField(upload_to='restaurants/', null=True, )
+    image = models.ImageField(upload_to='restaurants/', null=True, blank=True)
     category = models.ForeignKey(
         verbose_name='category',
         to='restaurant.Category',
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
     )
 
     opening_hours = models.TextField(max_length=100)
@@ -160,20 +161,11 @@ class Restaurant(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
-
-# This class is used for keeping track of updates history for comments
-class CommentUpdateHistory(models.Model):
-    comment = models.ForeignKey(
-        'Comment',
-        on_delete=models.CASCADE,
-
-    )
-    updated = models.DateTimeField(
-        verbose_name='last_update',
-    )
+    def __str__(self):
+        return self.name
 
 
-class Comment(models.Model):
+class Comment(TimeStampedModel):
     user = models.ForeignKey(
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,
@@ -191,6 +183,9 @@ class Comment(models.Model):
     content = models.TextField(
         verbose_name="content"
     )
+
+    def __str__(self):
+        return self.content[:50]
 
 
 class CommentLike(models.Model):
