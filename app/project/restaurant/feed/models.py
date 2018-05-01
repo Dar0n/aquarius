@@ -1,7 +1,6 @@
 from django.db import models
 
 from django.conf import settings
-from django.utils import timezone
 
 from django_countries.fields import CountryField
 from django.core.validators import RegexValidator, MaxValueValidator
@@ -61,13 +60,6 @@ class Review(TimeStampedModel):
 
     def __str__(self):
         return self.content[:50]
-
-    # This part here is to automatically create new ReviewUpdateHistory ovject every time there are changes to
-    # the model. Explanation here: https://stackoverflow.com/questions/19232352/django-multiple-update-dates-in-one-
-    # field?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-    def save(self, *args, **kwargs):
-        super(Review, self).save(*args, **kwargs)
-        ReviewUpdateHistory.objects.create(review=self, updated=timezone.now())
 
 
 class ReviewLike(models.Model):
