@@ -29,7 +29,7 @@ class Review(TimeStampedModel):
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="posts",  # backwords relation - with this reference we can get all the posts from user
+        related_name="reviews",  # backwords relation - with this reference we can get all the posts from user
         null=True
     )
     rating_validator = MaxValueValidator(5, message='The rating must be an integer number between 1 and 5.')
@@ -49,6 +49,10 @@ class Review(TimeStampedModel):
         blank=True,
     )
 
+    # created = models.DateTimeField(
+    #     verbose_name="created",
+    #     auto_now_add=True,
+    # )
     # comment = ...
     # M:1 relation with Comment, specified on Comment model
 
@@ -56,10 +60,6 @@ class Review(TimeStampedModel):
     # M:1 relation with ReviewLike, specified on ReviewLike model
 
     # TODO! make sure we don't need 'created' field when using ReviewUpdateHistory model
-    # created = models.DateTimeField(
-    #     verbose_name="created",
-    #     auto_now_add=True,
-    # )
 
     class Meta:
         verbose_name = 'Review'
@@ -148,6 +148,9 @@ class Restaurant(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Comment(TimeStampedModel):
     user = models.ForeignKey(
@@ -167,6 +170,9 @@ class Comment(TimeStampedModel):
     content = models.TextField(
         verbose_name="content"
     )
+
+    def __str__(self):
+        return self.content[:50]
 
 
 class CommentLike(models.Model):
