@@ -56,35 +56,44 @@ class RegistrationValidationSerializer(serializers.Serializer):
         label='password',
         write_only=True,
     )
-    first_name = serializers.CharField(
-        label='First name'
+    username = serializers.CharField(
+        label='Username'
     )
-    last_name = serializers.CharField(
-        label='Last name'
+    location = serializers.CharField(
+        label='Location'
+    )
+    email = serializers.CharField(
+        label='Email'
     )
 
+    def validate_email(self, value):
+        try:
+            return User.objects.get(
+                email=value,
+                is_active=False,
+            )
+        except User.DoesNotExist:
+            raise serializers.ValidationError(
+                'You have registered with different email!'
+            )
+
     def validate(self, data):
+        user = data.get('email')
+        if user.user_profile.registration_code != data.get('code'):
+            raise serializers.ValidationError({
+                'code': 'Wrong code entered!'
+            })
         if data.get('password') != data.get('password_repeat'):
             raise serializers.ValidationError({
                 'password': 'Passwords are not equal!'
             })
         return data
 
-    def validate_code(self, value):
-        try:
-            return User.objects.get(
-                user_profile__registration_code=value,
-                is_active=False,
-            )
-        except User.DoesNotExist:
-            raise serializers.ValidationError(
-                'Wrong validation code or already validated!'
-            )
 
     def save(self, validated_data):
-        user = validated_data.get('code')
-        user.first_name = validated_data.get('first_name')
-        user.last_name = validated_data.get('last_name')
+        user = validated_data.get('email')
+        user.username = validated_data.get('username')
+        user.user_profile.location = validated_data.get('location')
         user.is_active = True
         user.set_password(validated_data.get('password'))
         user.save()

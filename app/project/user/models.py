@@ -14,6 +14,7 @@ class Profile(models.Model):
     )
     location = models.CharField(
         max_length=200,
+        null=True,
     )
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
@@ -22,20 +23,28 @@ class Profile(models.Model):
     phone_number = models.CharField(
         validators=[phone_regex],
         max_length=17,
-        blank=True
+        blank=True,
+        null=True,
     )
     things_i_love = models.TextField(
         verbose_name="things_i_love",
         default='',
+        null = True,
         blank=True,
     )
     description = models.TextField(
-        verbose_name="description"
+        verbose_name="description",
+        null = True,
     )
-    joined_date = models.DateField()
+    joined_date = models.DateTimeField(
+        verbose_name="joined_date",
+        auto_now_add=True,
+        null=True,
+    )
     profile_image = models.ImageField(
         upload_to='profile_image',
         blank=True,
+        null=True,
     )
 
     def __str__(self):

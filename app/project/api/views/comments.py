@@ -2,7 +2,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from project.api.serializers.comments import CommentSerializer
-from project.restaurant.feed.models import Review, CommentLike, Comment
+from project.restaurant.models import Review, CommentLike, Comment
 from project.api.base import GetObjectMixin
 
 

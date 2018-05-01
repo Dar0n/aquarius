@@ -1,4 +1,4 @@
-from project.user.feed.models import Profile
+from project.user.models import Profile
 
 
 def create_profile(sender, **kwargs):
