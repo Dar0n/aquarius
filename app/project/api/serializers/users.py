@@ -27,7 +27,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Restaurant
+        model = User
         fields = ['id', 'content', 'rating', 'created', 'modified', 'user', 'name', 'likes', 'comments']
         read_only_fields = fields
 
