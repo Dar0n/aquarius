@@ -26,3 +26,16 @@ class CreateCommentOnReviewView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         comment = serializer.create(serializer.validated_data)
         return Response(CommentSerializer(comment).data)
+
+
+class DeleteCommentOnReviewView(GenericAPIView):
+    permission_classes = [
+        IsAuthenticated,
+    ]
+
+    queryset = Review.objects.all()
+
+    def delete(self, request, **kwargs):
+        comment = self.get_object()
+        comment.delete()
+        return Response('OK')
