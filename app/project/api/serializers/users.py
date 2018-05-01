@@ -11,7 +11,8 @@ class CreateProfileSerializer(serializers.ModelSerializer):
     fields = ("id", "first_name", "last_name", "email", "username", "user_profile")
 
     def post(self, validated_data):
-        user_profile = Profile.objects.create(**validated_data)
+        user_profile = ProfileUser.objects.create(**validated_data)
+        return user_profile;
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
