@@ -27,7 +27,7 @@ urlpatterns = [
     path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="like-comment"),
     path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="delete-comment-on-review"),
 
-
+    # path("review/comment/<int:pk>/", AllCommentsFromSingleUser.as_view(), name="comment-from-user")\
     # path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
     # path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
     # path("feed/", FeedDisplayView.as_view(), name="feed_display"),
