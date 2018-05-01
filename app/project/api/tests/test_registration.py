@@ -36,9 +36,9 @@ class RegistrationViewTest(APITestCase):
         num_results = User.objects.filter(username="new_user@gmail.com").count()
         self.assertEquals(num_results, 1)
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, 'Social feed registration')
+        self.assertEqual(mail.outbox[0].subject, 'Luna registration')
         new_user = User.objects.get(username="new_user@gmail.com")
-        self.assertEqual(mail.outbox[0].body[-5:], new_user.user_profile.registration_code)
+        self.assertEqual(mail.outbox[0].body[-30:-25], new_user.user_profile.registration_code)
 
     def test_registration_existing_user(self):
         url = self.get_url()

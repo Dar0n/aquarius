@@ -23,7 +23,7 @@ class PasswordResetSerializer(serializers.Serializer):
     def send_password_reset_email(email, code):
         message = EmailMessage(
             subject="Password reset request",
-            body=f"This is your code for reseting a password=>> {code}",
+            body=f"This is your registration link =>> http://aquarius.propulsion-learn.ch/registration/validation?code={code}&email={email}",
             to=[email],
         )
         message.send()
