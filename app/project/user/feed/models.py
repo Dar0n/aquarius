@@ -6,7 +6,7 @@ from django.conf import settings
 from project.api.helpers import code_generator
 
 
-class Profile(models.Model):
+class ProfileUser(models.Model):
     user = models.OneToOneField(
         verbose_name="user",
         to=settings.AUTH_USER_MODEL,
