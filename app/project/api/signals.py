@@ -3,5 +3,5 @@ from project.user.feed.models import Profile
 
 def create_profile(sender, **kwargs):
     if kwargs['created']:
-        user_profile = ProfileUser.objects.create(user=kwargs['instance'])
+        user_profile = Profile.objects.create(user=kwargs['instance'])
         return user_profile
