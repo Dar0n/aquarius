@@ -10,17 +10,6 @@ from django.core.validators import RegexValidator, MaxValueValidator
 from django_extensions.db.models import TimeStampedModel
 
 
-class ReviewUpdateHistory(models.Model):
-    review = models.ForeignKey(
-        'Review',
-        on_delete=models.CASCADE,
-
-    )
-    updated = models.DateTimeField(
-        verbose_name='last_update',
-    )
-
-
 class Review(TimeStampedModel):
     content = models.TextField(
         verbose_name="content"
