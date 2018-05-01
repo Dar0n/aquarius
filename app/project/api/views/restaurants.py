@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 
 from project.api.serializers.restaurants import RestaurantRatingSerializer
 from project.api.serializers.users import UserSerializer
-from project.restaurant.feed.models import Restaurant
+from project.restaurant.models import Restaurant
 
 
 # @route   POST api/restaurants/new/

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from project.restaurant.feed.models import Category
+from project.restaurant.models import Category
 
 
 class CategorySerializer(serializers.ModelSerializer):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from project.restaurant.feed.models import Review, Restaurant, ReviewLike, Comment, CommentLike, Category
+from project.restaurant.models import Review, Restaurant, ReviewLike, Comment, CommentLike, Category
 
 admin.site.register(Review)
 admin.site.register(Restaurant)

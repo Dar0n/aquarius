@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from project.restaurant.feed.models import Review
+from project.restaurant.models import Review
 
 
 class ReviewSerializer(serializers.ModelSerializer):
