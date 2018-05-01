@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from project.api.permissions import IsOwnerOrReadOnly
 
 from project.api.serializers.reviews import ReviewSerializer
-from project.restaurant.feed.models import Restaurant, Review, ReviewLike
+from project.restaurant.models import Restaurant, Review, ReviewLike
 
 User = get_user_model()
 

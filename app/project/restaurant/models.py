@@ -119,7 +119,7 @@ class Restaurant(models.Model):
         blank=True,
     )
 
-    opening_hours = models.TextField(max_length=100)
+    opening_hours = models.TextField(max_length=100, null=True)
 
     DEFAULT_STATUS = '$'
     STATUS_CHOICES = [
