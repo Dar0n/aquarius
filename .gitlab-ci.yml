@@ -24,8 +24,6 @@ build:
 
 lint:
   stage: lint
-  only:
-    - master
   script:
    - export CI_PIPELINE_ID=$CI_PIPELINE_ID
    - export CI_BUILD_REF_NAME=$CI_BUILD_REF_NAME
@@ -50,7 +48,6 @@ deploy to prod:
   stage: deploy
   only:
     - master
-    - tags
   when: manual
   script:
     - docker-compose -f docker-compose.deploy.yml pull
