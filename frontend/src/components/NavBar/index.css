@@ -76,6 +76,13 @@
   color: #fff;
   font-size: 11pt;
   font-weight: 100;
+  outline: none;
+  cursor: pointer;
+}
+
+.NavBar-auth-signup:active, .NavBar-auth-login:active {
+  height: 37px;
+  width: 50.5%;
 }
 
 .NavBar-auth-signup {

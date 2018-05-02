@@ -19,7 +19,7 @@ class NavBar extends Component {
     return (
       <div className='NavBar-container'>
         <div className='NavBar-logo-container'>
-          <img src={ logo } />
+          <img src={ logo } alt='Luna-logo'/>
         </div>
         <div className='NavBar-navigation-container'>
           <div className='Navbar-nav'>

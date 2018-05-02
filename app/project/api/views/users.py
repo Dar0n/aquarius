@@ -18,14 +18,29 @@ class GetUpdateUserProfileView(GenericAPIView):
         IsAuthenticatedOrReadOnly,
     ]
 
-    def get(self, request, **kwargs):
-        return Response(self.get_serializer(request.user).data)
+    # def get(self, request):
+    #     return
 
-    def post(self, request, **kwargs):
-        serializer = self.get_serializer(request.user, data=request.data)
+    # def get(self, request):
+    #     user = User.objects.filter(user_id=request.id)
+    #     return Response(self.get_serializer(user).data)
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
+    def post(self, request):
+        me = User.objects.get(id=request.user.id)
+        serializer = UserSerializer(me, data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        return Response(self.get_serializer(user).data)
+        serializer.save()
+        return Response(serializer.data)
+
+    # def post(self, request, **kwargs):
+    #     serializer = self.get_serializer(request.user, data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     user = serializer.save()
+    #     return Response(self.get_serializer(user).data)
 
 
 # @route   GET api/users/list/

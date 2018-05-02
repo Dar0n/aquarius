@@ -6,6 +6,7 @@ from project.api.views.categories import GetCategoriesView
 from project.api.views.registration import RegistrationView, RegistrationValidationView
 from project.api.views.restaurants import PostNewRestaurantView, GetAllRestaurantsView, GetRestaurantByNameView, \
     GetRestaurantByCategoryView, GetRestaurantByUserView, GetUpdateDeleteRestaurantByIDView
+from project.api.views.search import SearchListView
 from project.api.views.users import GetUpdateUserProfileView, GetAllUsersView, GetSpecificUserProfileView, GetUserView
 from project.api.views.password_reset import PasswordResetView, PasswordResetValidationView
 from project.api.views.reviews import RestaurantReviewsView, ReviewCreateView, ReviewByUserView, \
@@ -43,4 +44,5 @@ urlpatterns = [
     path("restaurants/catrgory/<int:category_id/>", GetRestaurantByCategoryView.as_view(), name="get-restaurant-by-category"),
     path("restaurants/user/<int:user_id/>", GetRestaurantByUserView.as_view(), name="get-restaurant-by-userview"),
     path("restaurants/<int:id/>", GetUpdateDeleteRestaurantByIDView.as_view(), name="get-update-delete-restaurant"),
+    path("search/", SearchListView.as_view(), name="search-user-review-restaurant"),
 ]
