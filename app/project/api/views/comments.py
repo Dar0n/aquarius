@@ -16,11 +16,11 @@ class CreateCommentOnReviewView(GenericAPIView):
     def post(self, request, **kwargs):
         review = self.get_object()
         print('review', review)
+        request.review = review
         serializer = self.get_serializer(
             data=request.data,
             context={
-                'request': request,
-                'review': review,
+                'request': request
             },
         )
         print('review')
