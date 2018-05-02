@@ -20,6 +20,7 @@ services:
       - run:/run
       - static-files:/static-files
       - media-files:/media-files
+      - frontend:/frontend-build
 
   nginx:
     image: nginx:latest
@@ -27,6 +28,7 @@ services:
       - run:/run
       - static-files:/static-files
       - media-files:/media-files
+      - frontend:/frontend
       - ./nginx:/etc/nginx/conf.d
     ports:
       - "80:80"
@@ -36,4 +38,5 @@ volumes:
   database:
   static-files:
   media-files:
+  frontend:
   run:
