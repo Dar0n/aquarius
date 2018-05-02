@@ -14,6 +14,11 @@ class NavBar extends Component {
     e.currentTarget.classList.add('Navbar-nav-li-active');
   }
 
+  handleSignUp = (e) => {
+    e.preventDefault();
+    this.props.history.push('/signup');
+  }
+
   render() {
     console.log('In da navbar!');
     return (
@@ -30,7 +35,7 @@ class NavBar extends Component {
             </ul>
           </div>
           <div className='NavBar-auth-container'>
-            <button className='NavBar-auth-signup'>Signup</button>
+            <button className='NavBar-auth-signup' onClick={ this.handleSignUp }>Signup</button>
             <button className='NavBar-auth-login'>Login</button>
           </div>
         </div>
