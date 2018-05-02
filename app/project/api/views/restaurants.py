@@ -3,25 +3,39 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
-from project.api.serializers.restaurants import RestaurantRatingSerializer
+from project.api.serializers.restaurants import RestaurantRatingSerializer, RestaurantSerializer
 from project.api.serializers.users import UserSerializer
 from project.restaurant.models import Restaurant
 
 
-# @route   POST api/restaurants/new/
-# @desc    Post new restaurant
-# @access  Public
 class PostNewRestaurantView(APIView):
     permission_classes = [
         IsAuthenticated,
     ]
 
     def post(self, request, **kwargs):
-        return Response(self.get_serializer(request.restaurant).data)
-        serializer = self.get_serializer(request.user, data=request.data)
+        serializer = RestaurantSerializer(data=request.data,
+                                          context={
+                                              "request": request
+                                          }, )  # passing request to the context of serializer
         serializer.is_valid(raise_exception=True)
-        restaurant = serializer.save()
-        return Response(self.get_serializer(restaurant).data)
+        restaurant = serializer.create(serializer.validated_data)
+        return Response(RestaurantSerializer(restaurant).data)
+
+        #
+        #
+        #
+        #
+        #
+        #
+        #
+        # serializer = self.get_serializer(data=request.data)
+        # serializer.is_valid(raise_exception=True)
+        # new_ = serializer.send_notification_email(
+        #     email=request.user.email
+        # )
+        # return Response(self.output_serializer_class(new_user).data)
+        #
 
 
 # @route   GET api/restaurants/
