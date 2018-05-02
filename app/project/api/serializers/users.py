@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 # from project.restaurant.models import Restaurant, Review, Comment
+from project.restaurant.models import Restaurant
 from project.user.models import Profile
 
 User = get_user_model()
@@ -14,6 +15,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['id', 'location', 'things_i_love', 'description', 'joined_date', 'profile_image']
         read_only_fields = ['id', 'joined_date']
+
+
+class Reviews(object):
+    pass
 
 
 class UserSerializer(serializers.ModelSerializer):
