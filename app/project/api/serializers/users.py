@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 # from django.core.mail import EmailMessage
-from django.forms import ImageField
+# from django.forms import ImageField
 from rest_framework import serializers
 
 # from project.restaurant.models import Restaurant, Review, Comment
@@ -14,8 +14,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['id', 'location', 'things_i_love', 'description', 'joined_date', 'profile_image']
         read_only_fields = ['id', 'joined_date']
-
-
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -67,14 +65,13 @@ class UserUpdateProfileSerializer(serializers.Serializer):
                 'You have registered with different email!'
             )
 
-    def validate(self, data):
-        user = data.get('email')
-        if type(ImageField) != type(data.get('profile_image')):
-            raise serializers.ValidationError({
-                'Location': 'Wrong location entered!'
-            })
-        return data
-
+    # def validate(self, data):
+    #     user = data.get('email')
+    #     if type(ImageField) != type(data.get('profile_image')):
+    #         raise serializers.ValidationError({
+    #             'Location': 'Wrong location entered!'
+    #         })
+    #     return data
 
     def save(self, validated_data):
         user = validated_data.get('email')
