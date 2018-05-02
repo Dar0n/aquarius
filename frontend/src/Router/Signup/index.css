@@ -1,0 +1,45 @@
+.Signup-container {
+
+  height: calc(100vh - 125px);
+}
+
+.Signup-container-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 60%;
+}
+
+.Signup-container-form > h1 {
+  text-transform: uppercase;
+  font-size: 16pt;
+  font-weight: 400;
+  color: #4D4D4C;
+}
+
+.Signup-container-form > input {
+  width: 250px;
+  height: 30px;
+  outline: none;
+  padding-left: 10px;
+  font-size: 11pt;
+  color: #757575;
+}
+
+.Signup-container-form> input::placeholder {
+  font-size: 11pt;
+  font-weight: 600;
+  /* padding-left: 10px; */
+}
+
+.Signup-container-form > button {
+  height: 40px;
+  width: 150px;
+  background-color: #E47D31;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 12pt;
+  cursor: pointer;
+  outline: none;
+}

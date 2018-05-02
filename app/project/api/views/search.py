@@ -1,7 +1,7 @@
 from django.db.models import Q
 from rest_framework.generics import ListAPIView
 from project.api.serializers.users import UserSerializer
-from project.restaurant.feed.models import Restaurant
+from project.restaurant.models import Restaurant
 
 
 # @route   GET api/search
