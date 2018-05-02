@@ -17,7 +17,7 @@ class PostNewRestaurantView(APIView):
         serializer = RestaurantSerializer(data=request.data,
                                         context={
                                           "request": request
-                                      }, )  # passing request to the context of serializer
+                               }, )  # passing request to the context of serializer
         serializer.is_valid(raise_exception=True)
         restaurant = serializer.create(serializer.validated_data)
         return Response(RestaurantSerializer(restaurant).data)

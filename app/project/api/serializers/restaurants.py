@@ -16,11 +16,6 @@ class RestaurantRatingSerializer(serializers.ModelSerializer):
 
 class RestaurantSerializer(serializers.ModelSerializer):
 
-    email = serializers.EmailField(
-        label="E-Mail address"
-    )
-    # category = CategorySerializer()
-
     class Meta:
         model = Restaurant
         fields = ['id', "name", "country", "street", "city", "zip", "website", "phone_number", "email", "opening_hours",
@@ -37,30 +32,13 @@ class RestaurantSerializer(serializers.ModelSerializer):
             # this for multiple user emails. Otherwise that would not work.
         )
         message.send()
-    # def validate_category(self, value):
-    #     try:
-    #         return Category.objects.get(id=value)
-    #
-    #     except Category.DoesNotExist:
-    #         raise serializers.ValidationError("Category does not exist!!")
-
-    # def register_user(self, email):
-    #     new_restaurant = Restaurant.objects.create_user(
-    #         username=email,
-    #         email=email,
-    #         is_active=False
-    #     )
-    #     self.send_registration_email(
-    #         email=email,
-    #         code=new_user.user_profile.registration_code,
-    #     )
-    #     return new_user
 
     def create(self, validated_data):
-        return Restaurant.objects.create(
+
+        restaurant = Restaurant.objects.create(
             # **validated_data,
             name=validated_data.get("name"),
-            # country=validated_data.get("country"),
+            country=validated_data.get("country"),
             street=validated_data.get("street"),
             city=validated_data.get("city"),
             zip=validated_data.get("zip"),
@@ -74,3 +52,8 @@ class RestaurantSerializer(serializers.ModelSerializer):
             # alternative way to pass all the fields is to use
             # just **validated_data
         )
+        self.send_notification_email(
+            email=validated_data.get("email")
+        )
+
+        return restaurant
