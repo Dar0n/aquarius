@@ -17,6 +17,7 @@ DEBUG = ast.literal_eval(os.environ.get("DJANGO_DEBUG"))
 
 ALLOWED_HOSTS = [
     "savchenko-ilya.propulsion-learn.ch",
+    "aquarius.propulsion-learn.ch",
     "localhost"
 ]
 
