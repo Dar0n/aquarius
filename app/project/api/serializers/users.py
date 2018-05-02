@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 # from django.core.mail import EmailMessage
-# from django.forms import ImageField
 from rest_framework import serializers
 
 # from project.restaurant.models import Restaurant, Review, Comment
@@ -30,12 +29,23 @@ class UserUpdateProfileSerializer(serializers.Serializer):
         label='username',
         write_only=True,
         required=False,
+        allow_blank=True,
+
 
     )
     location = serializers.CharField(
         label='location',
         write_only=True,
         required=False,
+        allow_blank=True
+
+    )
+    phone_number = serializers.CharField(
+        label='phone_number',
+        write_only=True,
+        required=False,
+        allow_blank=True
+
     )
     things_i_love = serializers.CharField(
         label='Things I Love',
@@ -46,18 +56,26 @@ class UserUpdateProfileSerializer(serializers.Serializer):
         label='Project Image',
         write_only=True,
         required=False,
+        allow_blank=True
+    )
+    joined_date = serializers.DateTimeField(
+        label='Joined Date',
+        write_only=True,
+        required=False,
+
     )
     description = serializers.CharField(
         label='Description',
         write_only=True,
         required=False,
+        allow_blank=True
 
     )
 
-    def validate_email(self, value):
+    def validate_email(self, email):
         try:
             return User.objects.get(
-                email=value,
+                email=email,
                 is_active=False,
             )
         except User.DoesNotExist:
@@ -65,16 +83,28 @@ class UserUpdateProfileSerializer(serializers.Serializer):
                 'You have registered with different email!'
             )
 
-    # def validate(self, data):
-    #     user = data.get('email')
-    #     if type(ImageField) != type(data.get('profile_image')):
-    #         raise serializers.ValidationError({
-    #             'Location': 'Wrong location entered!'
-    #         })
-    #     return data
+    def validate_location(self, location):
+
+        if location == "":
+            raise serializers.ValidationError({
+                'location': 'Please enter location!'
+            })
+        else:
+            return location
+
+
+    def validate_username(self, username):
+
+        if username == "":
+            raise serializers.ValidationError({
+                'username': 'Please enter Username!'
+            })
+        else:
+            return username
 
     def save(self, validated_data):
-        user = validated_data.get('email')
+        user = self.context.get('request').user
+
         profile = Profile.objects.get(user=user)
         user.username = validated_data.get('username')
         profile.location = validated_data.get('location')
@@ -83,4 +113,6 @@ class UserUpdateProfileSerializer(serializers.Serializer):
         profile.description = validated_data.get('description')
         profile.joined_date = validated_data.get('joined_date')
         profile.profile_image = validated_data.get('profile_image')
-        return profile
+        profile.save()
+        user.save()
+        return user
