@@ -13,7 +13,7 @@ class CreateCommentOnReviewView(GenericAPIView):
     serializer_class = CommentSerializer
     queryset = Review.objects.all()
 
-    def post(self, request):
+    def post(self, request, **kwargs):
         review = self.get_object()
         print('review', review)
         serializer = self.get_serializer(
