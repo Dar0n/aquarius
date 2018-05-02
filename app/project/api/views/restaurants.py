@@ -15,9 +15,9 @@ class PostNewRestaurantView(APIView):
 
     def post(self, request, **kwargs):
         serializer = RestaurantSerializer(data=request.data,
-                                        context={
-                                          "request": request
-                               }, )  # passing request to the context of serializer
+                                          context={
+                                              "request": request
+                                          }, )  # passing request to the context of serializer
         serializer.is_valid(raise_exception=True)
         restaurant = serializer.create(serializer.validated_data)
         return Response(RestaurantSerializer(restaurant).data)
@@ -36,6 +36,7 @@ class PostNewRestaurantView(APIView):
         # )
         # return Response(self.output_serializer_class(new_user).data)
         #
+
 
 # @route   GET api/restaurants/
 # @desc    Get the list of all the restaurants
