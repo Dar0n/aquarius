@@ -42,15 +42,15 @@ push latest:
     - docker tag "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" "$CI_REGISTRY_IMAGE":latest
     - docker push "$CI_REGISTRY_IMAGE":latest
 
- deploy to prod:
-   stage: deploy
-   only:
-     - master
-   when: manual
-   script:
-     - docker-compose -f docker-compose.deploy.yml pull
-     - docker-compose -f docker-compose.deploy.yml down
-     - docker-compose -f docker-compose.deploy.yml up -d
+deploy to prod:
+ stage: deploy
+ only:
+   - master
+ when: manual
+ script:
+   - docker-compose -f docker-compose.deploy.yml pull
+   - docker-compose -f docker-compose.deploy.yml down
+   - docker-compose -f docker-compose.deploy.yml up -d
 
 # removing last image
 # if fail happens, not-finished image can remain, so we have to clen it up
