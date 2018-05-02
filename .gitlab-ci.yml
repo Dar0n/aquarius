@@ -46,6 +46,7 @@ deploy to prod:
   stage: deploy
   only:
     - master
+    - tags
   when: manual
   script:
     - docker-compose -f docker-compose.deploy.yml pull
