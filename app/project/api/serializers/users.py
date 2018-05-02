@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 # from project.restaurant.models import Restaurant, Review, Comment
-from project.restaurant.models import Restaurant
 from project.user.models import Profile
 
 User = get_user_model()
