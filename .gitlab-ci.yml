@@ -17,6 +17,8 @@ pull:
 
 build:
   stage: build
+  only:
+    - master
   script:
     - docker build --tag="$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" --cache-from="$CI_REGISTRY_IMAGE":latest --pull .
 
@@ -46,6 +48,7 @@ deploy to prod:
   stage: deploy
   only:
     - master
+    - tags
   when: manual
   script:
     - docker-compose -f docker-compose.deploy.yml pull
