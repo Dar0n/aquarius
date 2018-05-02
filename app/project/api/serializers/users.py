@@ -1,3 +1,5 @@
+from django.core.mail import EmailMessage
+
 from django.contrib.auth import get_user_model
 # from django.core.mail import EmailMessage
 from rest_framework import serializers
@@ -102,6 +104,15 @@ class UserUpdateProfileSerializer(serializers.Serializer):
         else:
             return username
 
+    @staticmethod
+    def send_notification_email(email):
+        message = EmailMessage(
+            subject="Update user profile creation",
+            body=f"Update user profile creation",
+            to=[email],
+        )
+        message.send()
+
     def save(self, validated_data):
         user = self.context.get('request').user
 
@@ -115,4 +126,8 @@ class UserUpdateProfileSerializer(serializers.Serializer):
         profile.profile_image = validated_data.get('profile_image')
         profile.save()
         user.save()
+        self.send_notification_email(
+            email=validated_data.get("email")
+        )
+
         return user
