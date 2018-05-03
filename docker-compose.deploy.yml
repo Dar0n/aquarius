@@ -8,7 +8,7 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
   app:
-    image: registry.gitlab.propulsion-home.ch/dar0n/django-rest:latest
+    image: registry.gitlab.propulsion-home.ch/full-stack/batch-2018-03/group-projects/aquarius:latest
     restart: always
     env_file:
       - prod.env
@@ -20,6 +20,7 @@ services:
       - run:/run
       - static-files:/static-files
       - media-files:/media-files
+      - frontend:/frontend-build
 
   nginx:
     image: nginx:latest
@@ -27,6 +28,7 @@ services:
       - run:/run
       - static-files:/static-files
       - media-files:/media-files
+      - frontend:/frontend
       - ./nginx:/etc/nginx/conf.d
     ports:
       - "80:80"
@@ -36,4 +38,5 @@ volumes:
   database:
   static-files:
   media-files:
+  frontend:
   run:
