@@ -31,17 +31,16 @@ class GetUpdateUserProfileView(GenericAPIView):
         return Response(serializer.data)
 
     def post(self, request):
-        me = User.objects.get(id=request.user.id)
-        serializer = self.serializer_class(me, data=request.data)
+        # me = User.objects.get(id=request.user.id)
+        serializer = self.get_serializer(
+            data=request.data,
+            context={
+                'request': request
+            },
+        )
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-
-    # def post(self, request, **kwargs):
-    #     serializer = self.get_serializer(request.user, data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     user = serializer.save()
-    #     return Response(self.get_serializer(user).data)
+        user = serializer.save(serializer.validated_data)
+        return Response(self.serializer_class_output(user).data)
 
 
 # @route   GET api/users/list/
