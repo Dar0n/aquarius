@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { loginAction } from '../../store/actions/userActions';
 import './index.css';
 
-const queryString = require('query-string');
+var queryString = require('simple-query-string');
 
 class Login extends Component {
 

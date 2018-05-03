@@ -3,8 +3,7 @@ import { validationSubmitAction } from '../../store/actions/signup';
 import { connect } from 'react-redux';
 import './index.css';
 
-const queryString = require('query-string');
-
+var queryString = require('simple-query-string');
 class SignupValidation extends Component {
 
   constructor (props) {
