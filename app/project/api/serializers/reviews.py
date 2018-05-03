@@ -20,6 +20,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             to=[email],
         )
         message.send()
+
     def create(self, validated_data):
         review = Review.objects.create(
             # **validated_data,

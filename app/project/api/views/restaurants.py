@@ -22,21 +22,6 @@ class PostNewRestaurantView(APIView):
         restaurant = serializer.create(serializer.validated_data)
         return Response(RestaurantSerializer(restaurant).data)
 
-        #
-        #
-        #
-        #
-        #
-        #
-        #
-        # serializer = self.get_serializer(data=request.data)
-        # serializer.is_valid(raise_exception=True)
-        # new_ = serializer.send_notification_email(
-        #     email=request.user.email
-        # )
-        # return Response(self.output_serializer_class(new_user).data)
-        #
-
 
 # @route   GET api/restaurants/
 # @desc    Get the list of all the restaurants

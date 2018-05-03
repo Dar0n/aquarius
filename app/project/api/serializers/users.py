@@ -33,7 +33,6 @@ class UserUpdateProfileSerializer(serializers.Serializer):
         required=False,
         allow_blank=True,
 
-
     )
     location = serializers.CharField(
         label='location',
@@ -93,7 +92,6 @@ class UserUpdateProfileSerializer(serializers.Serializer):
             })
         else:
             return location
-
 
     def validate_username(self, username):
 

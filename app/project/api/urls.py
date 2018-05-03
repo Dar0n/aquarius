@@ -15,13 +15,13 @@ from project.api.views.reviews import RestaurantReviewsView, ReviewCreateView, R
 app_name = "api"
 
 urlpatterns = [
-    path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('auth/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    path('auth/token/', TokenObtainPairView.as_view(), name='token-obtain-pair'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
+    path('auth/token/verify/', TokenVerifyView.as_view(), name='token-verify'),
     path("registration/", RegistrationView.as_view(), name="registration"),
     path("registration/validation/", RegistrationValidationView.as_view(), name="registration-validation"),
     path("me/", GetUpdateUserProfileView.as_view(), name="show-update-userprofile"),
-    path("users/?search=<str:search_string>", GetUserView.as_view(), name="search-for-a-user"),
+    path("users/", GetUserView.as_view(), name="search-for-a-user"),
     path("users/list/", GetAllUsersView.as_view(), name="list-all-users"),
     path("users/<int:user_id>/", GetSpecificUserProfileView.as_view(), name="get-user-profile"),
     path("review/comment/new/<int:pk>/", CreateCommentOnReviewView.as_view(), name="comment-on-review"),
@@ -40,9 +40,9 @@ urlpatterns = [
     path("category/list/", GetCategoriesView.as_view(), name='get-list-of-categories'),
     path("restaurants/new/", PostNewRestaurantView.as_view(), name="create-new-restaurant"),
     path("restaurants/", GetAllRestaurantsView.as_view(), name="get-list-of-restaurants"),
-    path("restaurants/?search=<str:search_string/>", GetRestaurantByNameView.as_view(), name="get-restaurant-by-name"),
-    path("restaurants/catrgory/<int:category_id/>", GetRestaurantByCategoryView.as_view(), name="get-restaurant-by-category"),
+    path("restaurants/", GetRestaurantByNameView.as_view(), name="get-restaurant-by-name"),
+    path("restaurants/category/<int:category_id/>", GetRestaurantByCategoryView.as_view(), name="get-restaurant-by-category"),
     path("restaurants/user/<int:user_id/>", GetRestaurantByUserView.as_view(), name="get-restaurant-by-userview"),
-    path("restaurants/<int:id/>", GetUpdateDeleteRestaurantByIDView.as_view(), name="get-update-delete-restaurant"),
+    path("restaurants/<int:pk>/", GetUpdateDeleteRestaurantByIDView.as_view(), name="get-update-delete-restaurant"),
     path("search/", SearchListView.as_view(), name="search-user-review-restaurant"),
 ]
