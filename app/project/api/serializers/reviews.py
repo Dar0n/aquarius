@@ -26,7 +26,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             # **validated_data,
             content=validated_data.get("content"),
             rating=validated_data.get("rating"),
-            restaurant=self.context.get("restaurant"),
+            restaurant=self.context.get("request").restaurant,
             # alternative way to pass all the fields is to use
             # just **validated_data
             user=self.context.get("request").user,
