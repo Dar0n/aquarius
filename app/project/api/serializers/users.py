@@ -13,7 +13,7 @@ User = get_user_model()
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['id', 'location', 'things_i_love', 'description', 'joined_date', 'profile_image']
+        fields = ['id', 'location', 'things_i_love', 'description', 'joined_date', 'profile_image', 'phone_number']
         read_only_fields = ['id', 'joined_date']
 
 
