@@ -1,22 +1,27 @@
 from django.db.models import Q
 from rest_framework.generics import ListAPIView
+
 from project.api.serializers.users import UserSerializer
+from django.contrib.auth import get_user_model
+
 from project.restaurant.models import Restaurant
 
-
+User = get_user_model()
 # @route   GET api/search
 # @desc    Get the review, restaurant or user profile
 # @access  Public
 class SearchListView(ListAPIView):
-    serializer_class = UserSerializer
-    queryset = Restaurant.objects.all()
+
+
+
 
     def filter_queryset(self, queryset):
         search_string = self.request.query_params.get('search')
         if search_string:
             queryset = queryset.filter(
                 Q(username__contains=search_string) |
-                Q(restaurant__contains=search_string) |
-                Q(review__contain=search_string)
+                Q(email__contains=search_string) |
+                Q(first_name__contains=search_string) |
+                Q(laster_name__contains=search_string)
             )
         return queryset

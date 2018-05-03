@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.mail import EmailMessage
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -82,12 +83,24 @@ class ReviewLikeDislikeView(GenericAPIView):
         IsOwnerOrReadOnly
     ]
 
+    @staticmethod
+    def send_notification_email(email):
+        message = EmailMessage(
+            subject="Update user profile creation",
+            body=f"Update user profile creation",
+            to=[email],
+        )
+        message.send()
+
     def post(self, request, review_id):
         likes = ReviewLike.objects.filter(review_id=review_id, user_id=request.user.id).count()
         if likes > 0:
             return Response("You already liked this post")
         else:
             ReviewLike.objects.create(review_id=review_id, user_id=request.user.id)
+            self.send_notification_email(
+                email=request.user.email
+            )
             return Response("Added a like")
 
     def delete(self, request, review_id):

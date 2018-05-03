@@ -115,7 +115,6 @@ class UserUpdateProfileSerializer(serializers.Serializer):
 
     def save(self, validated_data):
         user = self.context.get('request').user
-
         profile = Profile.objects.get(user=user)
         user.username = validated_data.get('username')
         profile.location = validated_data.get('location')
@@ -126,8 +125,9 @@ class UserUpdateProfileSerializer(serializers.Serializer):
         profile.profile_image = validated_data.get('profile_image')
         profile.save()
         user.save()
+
         self.send_notification_email(
-            email=validated_data.get("email")
+            email=self.context.get('request').user.email
         )
 
         return user
