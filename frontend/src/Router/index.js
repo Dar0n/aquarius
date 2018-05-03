@@ -2,9 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import App from './App';
 import Signup from './Signup';
+import Login from './Login';
+import SignupMessage from './SignupMessage';
 import ScrollToTop from '../components/ScrollToTop';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import SignupValidation from './SignupValidation';
 
 const Home = (props) => {
     return (
@@ -14,6 +17,9 @@ const Home = (props) => {
             <NavBar />
             <Route exact path="/" component={ App } />
             <Route exact path="/signup" component={ Signup } />
+            <Route exact path="/signup_message" component={ SignupMessage } />
+            <Route exact path="/registration/validation" component={ SignupValidation } />
+            <Route exact path="/login" component={ Login } />
             <Footer />
           </ScrollToTop>
         </Switch>

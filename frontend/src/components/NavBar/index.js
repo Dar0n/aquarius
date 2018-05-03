@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link }  from 'react-router-dom';
+import { logOutAction } from '../../store/actions/userActions';
+import { SET_LOGIN_STATUS } from '../../store/constants'
 import logo from './logo.svg'
 
 import './index.css';
 
 
 class NavBar extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loginStatus: 'login',
+    }
+  }
 
   navigate = (e) => {
     const activeLi = document.getElementsByClassName('Navbar-nav-li-active')[0];
@@ -19,8 +29,56 @@ class NavBar extends Component {
     this.props.history.push('/signup');
   }
 
+  handleLogin = (e) => {
+    e.preventDefault();
+
+    // if (this.props.loginStatus === 'logedin') {
+    //   this.props.dispatch(logOutAction(this.props));
+    // }
+    // else {
+    this.props.history.push('/login');
+    // }
+  }
+
+  handleLogout = (e) => {
+    e.preventDefault();
+    this.props.dispatch(logOutAction(this.props));
+    this.props.history.push('/');
+  }
+
+  componentDidMount = () => {
+    if (this.props.tokens.access) {
+      console.log('logged in');
+      const loginStatusAction = {
+        type: SET_LOGIN_STATUS,
+        payload: {
+          loginStatus: 'logedin',
+        }
+      }
+      this.props.dispatch(loginStatusAction);
+    }
+  }
+
+  addCorrectButtons = () => {
+    if (this.props.loginStatus === 'logedin') {
+      return (
+          <div className='NavBar-auth-container'>
+            <button className='NavBar-auth-logout' onClick={ this.handleLogout }>Logout</button>
+          </div>
+      )
+    }
+    else if (this.props.loginStatus === 'logedout'){
+      return (
+        <div className='NavBar-auth-container'>
+          <button className='NavBar-auth-signup' onClick={ this.handleSignUp }>Signup</button>
+          <button className='NavBar-auth-login' onClick={ this.handleLogin }>Login</button>
+        </div>
+      )
+    }
+  }
+
   render() {
-    console.log('In da navbar!');
+    console.log(this.props);
     return (
       <div className='NavBar-container'>
         <div className='NavBar-logo-container'>
@@ -34,10 +92,13 @@ class NavBar extends Component {
               <li onClick={ this.navigate }><Link to='/'>Profile</Link></li>
             </ul>
           </div>
-          <div className='NavBar-auth-container'>
+          {
+            this.addCorrectButtons()
+          }
+          {/* <div className='NavBar-auth-container'>
             <button className='NavBar-auth-signup' onClick={ this.handleSignUp }>Signup</button>
-            <button className='NavBar-auth-login'>Login</button>
-          </div>
+            <button className='NavBar-auth-login' onClick={ this.handleLogin }>{ this.state.loginStatus }</button>
+          </div> */}
         </div>
       </div>
     );
@@ -46,7 +107,8 @@ class NavBar extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-
+    tokens: state.tokens,
+    loginStatus: state.loginStatus.loginStatus,
   }
 }
 
