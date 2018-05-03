@@ -108,7 +108,7 @@ class Restaurant(models.Model):
     # This will make sure that the entered value will follow desired pattern
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # validators should be a list
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, null=True)  # validators should be a list
     email = models.EmailField('Email', max_length=70, blank=True)
     image = models.ImageField(upload_to='restaurants/', null=True, blank=True)
     category = models.ForeignKey(
@@ -141,6 +141,21 @@ class Restaurant(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
+    #
+    # DEFAULT_CAT_NAME = '$'
+    # CAT_NAME_CHOICES = [
+    #     (DEFAULT_CAT_NAME, '$'),
+    #     ('cat_1', '$'),
+    #     ('cat_2', '$$'),
+    #     ('cat_3', '$$$'),
+    # ]
+    #
+    # category = models.CharField(
+    #     verbose_name='category',
+    #     choices=CAT_NAME_CHOICES,
+    #     default=DEFAULT_CAT_NAME,
+    #     max_length=100,
+    # )
 
     def __str__(self):
         return self.name

@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from project.api.serializers.users import UserSerializer
+from project.api.serializers.users import UserSerializer, UserUpdateProfileSerializer
 
 User = get_user_model()
 
@@ -13,7 +13,8 @@ User = get_user_model()
 # @desc    Get and update user profile
 # @access  Public
 class GetUpdateUserProfileView(GenericAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserUpdateProfileSerializer
+    serializer_class_output = UserSerializer
     permission_classes = [
         IsAuthenticatedOrReadOnly,
     ]
@@ -26,21 +27,20 @@ class GetUpdateUserProfileView(GenericAPIView):
     #     return Response(self.get_serializer(user).data)
 
     def get(self, request):
-        serializer = UserSerializer(request.user)
+        serializer = self.serializer_class_output(request.user)
         return Response(serializer.data)
 
     def post(self, request):
-        me = User.objects.get(id=request.user.id)
-        serializer = UserSerializer(me, data=request.data)
+        # me = User.objects.get(id=request.user.id)
+        serializer = self.get_serializer(
+            data=request.data,
+            context={
+                'request': request
+            },
+        )
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-
-    # def post(self, request, **kwargs):
-    #     serializer = self.get_serializer(request.user, data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     user = serializer.save()
-    #     return Response(self.get_serializer(user).data)
+        user = serializer.save(serializer.validated_data)
+        return Response(self.serializer_class_output(user).data)
 
 
 # @route   GET api/users/list/

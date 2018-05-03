@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.core.mail import EmailMessage
 from rest_framework import serializers
 
+from project.user.models import Profile
+
 User = get_user_model()
 
 
@@ -63,7 +65,7 @@ class RegistrationValidationSerializer(serializers.Serializer):
     location = serializers.CharField(
         label='Location'
     )
-    email = serializers.CharField(
+    email = serializers.EmailField(
         label='Email'
     )
 
@@ -92,9 +94,11 @@ class RegistrationValidationSerializer(serializers.Serializer):
 
     def save(self, validated_data):
         user = validated_data.get('email')
+        profile = Profile.objects.get(user=user)
         user.username = validated_data.get('username')
-        user.user_profile.location = validated_data.get('location')
+        profile.location = validated_data.get('location')
         user.is_active = True
         user.set_password(validated_data.get('password'))
         user.save()
+        profile.save()
         return user

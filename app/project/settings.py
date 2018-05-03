@@ -17,6 +17,7 @@ DEBUG = ast.literal_eval(os.environ.get("DJANGO_DEBUG"))
 
 ALLOWED_HOSTS = [
     "savchenko-ilya.propulsion-learn.ch",
+    "aquarius.propulsion-learn.ch",
     "localhost"
 ]
 
@@ -124,7 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static-files/'
 STATIC_ROOT = '/static-files'
 
 MEDIA_URL = '/media/'

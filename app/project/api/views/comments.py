@@ -20,7 +20,6 @@ class CreateCommentOnReviewView(GenericAPIView):
             data=request.data,
             context={
                 'request': request,
-                'review': review,
             },
         )
         print('review')
