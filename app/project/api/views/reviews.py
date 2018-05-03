@@ -29,10 +29,10 @@ class ReviewCreateView(GenericAPIView):
 
     def post(self, request, **kwargs):
         restaurant = self.get_object()
+        request.restaurant = restaurant
         serializer = ReviewSerializer(data=request.data,
                                       context={
                                           "request": request,
-                                          "restaurant": restaurant,
                                       }, )  # passing request to the context of serializer
         serializer.is_valid(raise_exception=True)
         review = serializer.create(serializer.validated_data)
