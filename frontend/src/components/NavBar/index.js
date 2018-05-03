@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link }  from 'react-router-dom';
 import { logOutAction } from '../../store/actions/userActions';
+import { fetchUserInfo } from '../../store/actions/fetchUserInfo';
 import { SET_LOGIN_STATUS } from '../../store/constants'
 import logo from './logo.svg'
 
@@ -48,7 +49,6 @@ class NavBar extends Component {
 
   componentDidMount = () => {
     if (this.props.tokens.access) {
-      console.log('logged in');
       const loginStatusAction = {
         type: SET_LOGIN_STATUS,
         payload: {
@@ -57,6 +57,7 @@ class NavBar extends Component {
       }
       this.props.dispatch(loginStatusAction);
     }
+    this.props.dispatch(fetchUserInfo(this.props));
   }
 
   addCorrectButtons = () => {
@@ -78,7 +79,6 @@ class NavBar extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className='NavBar-container'>
         <div className='NavBar-logo-container'>

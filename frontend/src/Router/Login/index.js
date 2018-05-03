@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { validationSubmitAction } from '../../store/actions/signup';
+// import { validationSubmitAction } from '../../store/actions/signup';
 import { connect } from 'react-redux';
 import { loginAction } from '../../store/actions/userActions';
 import './index.css';

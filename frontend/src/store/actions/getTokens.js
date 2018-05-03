@@ -1,5 +1,5 @@
 import { setTokens } from './userActions'; 
-import { SET_LOGIN_STATUS } from '../constants';
+import { SET_LOGIN_STATUS, SERVER_URL } from '../constants';
 
 export const getTokens = (body, props, dispatch, getState) => {
   if (!getState().tokens.access){
@@ -11,7 +11,7 @@ export const getTokens = (body, props, dispatch, getState) => {
       body: JSON.stringify(body),
       headers: headers,
     }
-    fetch('http://aquarius.propulsion-learn.ch/backend/api/auth/token/', config)
+    fetch(SERVER_URL + 'auth/token/', config)
     .then(response => {
       // console.log(response);
       return response.json()
@@ -26,7 +26,6 @@ export const getTokens = (body, props, dispatch, getState) => {
             loginStatus: 'logedin',
           }
         }
-        console.log(loginStatusAction);
         dispatch(loginStatusAction);
         localStorage.setItem('tokens', JSON.stringify(data));
         props.history.push('/');

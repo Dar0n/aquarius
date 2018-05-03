@@ -15,9 +15,11 @@ class RestaurantReviewsView(GenericAPIView):
     permission_classes = [
         IsAuthenticatedOrReadOnly,
     ]
+    queryset = Restaurant.objects.all()
 
-    def get(self, request, restaurant_id):
-        restaurant = Restaurant.objects.get(id=restaurant_id)
+    def get(self, request, **kwrags):
+        restaurant = self.get_object()
+        # reviews = Review.objects.filter(restaurant=restaurant)
         serializer = ReviewSerializer(restaurant.review.all(), many=True)
         return Response(serializer.data)
 

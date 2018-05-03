@@ -1,4 +1,5 @@
 import { getTokens } from './getTokens';
+import { SERVER_URL } from '../constants';
 
 export const signupAction = (state, props) => {
   return (dispatch, getState) => {
@@ -18,7 +19,7 @@ export const signupAction = (state, props) => {
       headers: headers,
     }
     // const myUrl = SERVER_URL + 'registration/';
-    fetch('http://aquarius.propulsion-learn.ch/backend/api/registration/', config)
+    fetch(SERVER_URL + 'registration/', config)
       .then(response => {
         // console.log(response);
         if (response.status === 200) {
@@ -33,7 +34,6 @@ export const signupAction = (state, props) => {
 }
 
 export const validationSubmitAction = (state, props) => {
-  console.log(state);
   return (dispatch, getState) => {
     if (!state.email || !state.code || !state.username || !state.location || !state.password || !state.password_repeat) {
       alert('Not all fields filled');
@@ -55,14 +55,13 @@ export const validationSubmitAction = (state, props) => {
         body: JSON.stringify(body),
         headers,
       }
-      console.log('body:', body);
-      fetch('http://aquarius.propulsion-learn.ch/backend/api/registration/validation/', config)
+      fetch(SERVER_URL + 'registration/validation/', config)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         return response.json()
       })
       .then(data => {
-        console.log(data);
+        // console.log(data);
         const body = {
           username: state.username,
           password: state.password,

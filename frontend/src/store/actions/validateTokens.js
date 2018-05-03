@@ -1,4 +1,5 @@
 import { logOutAction, setTokens } from './userActions';
+import { SERVER_URL } from '../constants';
 
 export const validateTokens = (state, dispatch, props) => {
   const access = state.tokens.access;
@@ -17,7 +18,7 @@ export const validateTokens = (state, dispatch, props) => {
   const refreshHeaders = new Headers({
     'content-type': 'application/json',
   });
-  return fetch('http://aquarius.propulsion-learn.ch/api/api/auth/token/verify/', accessConfig)
+  return fetch(SERVER_URL + 'auth/token/verify/', accessConfig)
     .then(response => {
       // console.log(response);
       if(response.status===401){
@@ -32,7 +33,7 @@ export const validateTokens = (state, dispatch, props) => {
           body: JSON.stringify(refreshBody),
           headers: refreshHeaders,
         };
-        return fetch('http://aquarius.propulsion-learn.ch/api/api/auth/token/verify/', refreshConfig);
+        return fetch(SERVER_URL + 'auth/token/verify/', refreshConfig);
       }
       return;
     })
@@ -50,7 +51,7 @@ export const validateTokens = (state, dispatch, props) => {
           body: JSON.stringify(refreshBody),
           headers: refreshHeaders,
         };
-        return fetch('http://aquarius.propulsion-learn.ch/api/auth/token/refresh/', refreshConfig);
+        return fetch(SERVER_URL + 'auth/token/refresh/', refreshConfig);
       }
       else {
         dispatch(logOutAction(props));
