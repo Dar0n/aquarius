@@ -17,6 +17,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'joined_date']
 
 
+class Reviews(object):
+    pass
+
+
 class UserSerializer(serializers.ModelSerializer):
     user_profile = UserProfileSerializer()
 
