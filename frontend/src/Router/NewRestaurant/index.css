@@ -1,0 +1,108 @@
+.NewRestaurant-container {
+  /* height: calc(100vh - 150px); */
+  min-height: 300px;
+}
+
+.NewRestaurant-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.NewRestaurant-form > h1 {
+  text-transform: uppercase;
+  font-size: 16pt;
+  font-weight: 400;
+  color: #4D4D4C;
+}
+
+.NewRestaurant-form > h1::after {
+  content: '';
+  border-bottom: 3px solid #E47D31;
+  position: relative;
+  display: block;
+  width: 60%;
+  left: 20%;
+  top: 15px;
+}
+
+.NewRestaurant-formfields-container {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.NewRestaurant-formfields-fieldset {
+  margin: 30px auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.NewRestaurant-formfields-fieldset-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.NewRestaurant-formfields-fieldset-inputs label {
+  color: #979797;
+  font-size: 12pt;
+  font-weight: 600;
+}
+
+.NewRestaurant-formfields-fieldset-inputs > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.NewRestaurant-formfields-fieldset-inputs > div > input, 
+.NewRestaurant-formfields-fieldset-inputs > div > select {
+  width: 250px;
+  height: 40px;
+  border: none;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+
+.NewRestaurant-formfields-container > fieldset > div {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.Login-formfields-container > input {
+  margin-top: 15px;
+  width: 250px;
+  height: 30px;
+  outline: none;
+  padding-left: 10px;
+  font-size: 11pt;
+  color: #757575;
+  border: none;
+}
+
+.Login-formfields-container> input::placeholder {
+  font-size: 11pt;
+  font-weight: 400;
+  /* padding-left: 10px; */
+}
+
+.Login-form > button {
+  margin: 40px;
+  height: 40px;
+  width: 150px;
+  background-color: #E47D31;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 12pt;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}

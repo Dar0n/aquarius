@@ -1,6 +1,8 @@
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
+
+from project.api.permissions import IsOwnerOrReadOnly
 from project.api.serializers.comments import CommentSerializer
 from project.restaurant.models import Review, CommentLike, Comment
 from project.api.base import GetObjectMixin
@@ -30,7 +32,7 @@ class CreateCommentOnReviewView(GenericAPIView):
 
 class DeleteCommentOnReviewView(GenericAPIView):
     permission_classes = [
-        IsAuthenticated,
+        IsOwnerOrReadOnly,
     ]
 
     queryset = Review.objects.all()
@@ -42,6 +44,9 @@ class DeleteCommentOnReviewView(GenericAPIView):
 
 
 class LikeRemoveLikeCommentOnReviewView(GetObjectMixin, GenericAPIView):
+    permission_classes = [
+        IsAuthenticatedOrReadOnly,
+    ]
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
 
@@ -58,3 +63,10 @@ class LikeRemoveLikeCommentOnReviewView(GetObjectMixin, GenericAPIView):
         like = self.get_object_by_model(CommentLike, comment=comment, user=request.user)
         like.delete()
         return Response('Like removed!')
+
+
+class GetCommentsForReviewView(GenericAPIView):
+    def get(self, request, review_id):
+        comments = Comment.objects.filter(review_id=review_id)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)

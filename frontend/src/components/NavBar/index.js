@@ -81,6 +81,7 @@ class NavBar extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
     
       <div className='NavBar-container'>
@@ -120,6 +121,7 @@ const mapStateToProps = (state, props) => {
     
     tokens: state.tokens,
     loginStatus: state.loginStatus.loginStatus,
+    localUser: state.localUser
   }
 }
 

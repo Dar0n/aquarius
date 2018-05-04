@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView

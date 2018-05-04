@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from project.api.views.comments import CreateCommentOnReviewView, DeleteCommentOnReviewView, \
-    LikeRemoveLikeCommentOnReviewView
+    LikeRemoveLikeCommentOnReviewView, GetCommentsForReviewView
 from project.api.views.categories import GetCategoriesView
 from project.api.views.registration import RegistrationView, RegistrationValidationView
 from project.api.views.restaurants import PostNewRestaurantView, GetAllRestaurantsView, GetRestaurantByNameView, \
@@ -28,6 +28,7 @@ urlpatterns = [
     path("review/comment/<int:pk>/", DeleteCommentOnReviewView.as_view(), name="delete-comment-on-review"),
     path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="like-comment"),
     path("review/comment/like/<int:pk>/", LikeRemoveLikeCommentOnReviewView.as_view(), name="delete-comment-on-review"),
+    path("review/comments/<int:review_id>/", GetCommentsForReviewView.as_view(), name='get-comment-for-review'),
     path("auth/password-reset/", PasswordResetView.as_view(), name="password-reset"),
     path("auth/password-reset/validate/", PasswordResetValidationView.as_view(), name="password-reset-validation"),
     path("reviews/restaurant/<int:pk>/", RestaurantReviewsView.as_view(), name="restaurant-reviews"),
