@@ -5,6 +5,8 @@ import { fetchRestaurant } from "../../store/actions/fetchRestaurant";
 
 import styled from "styled-components";
 
+import "./food-example.jpeg";
+
 const StyledCard = styled.section`
   display: -webkit-flex;
   display: flex;
@@ -22,6 +24,9 @@ const StyledCard = styled.section`
   align-content: flex-end;
   text-shadow: 1px -2px 4px #000000;
   border-top: 5px solid #f27c3e;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
   border-radius: 5px;
   width: 25%;
   color: white;
@@ -53,7 +58,7 @@ class RestaurantCard extends Component {
           <div className="RestaurantCard-list-container">
             <img
               className="RestaurantCard-img-top"
-              // src={props.restaurant.review}
+              src={"food-example.jpeg"}
               alt="restaurant-review"
             />
             <div className="RestaurantCard-card-container">
