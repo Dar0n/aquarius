@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import './index.css';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-// import Card from '../../components/Restaurant'
+import React, { Component } from "react";
+import "./index.css";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import Restaurant from "../../components/Restaurant";
 
 class App extends Component {
 
@@ -22,6 +22,7 @@ class App extends Component {
   render() {
     console.log(this.props);
     return (
+
       <div className='App-container'>
         <div className='App-search-container'>
           <input 
@@ -33,11 +34,11 @@ class App extends Component {
           <button>Search</button>
         </div>
         {/*<Card />*/}
+        <Restaurant />
       </div>
     );
   }
 }
-
 
 const mapStateToProps = (state) => {
   console.log(state);
@@ -54,5 +55,6 @@ const mapStateToProps = (state) => {
     localUser,
   }
 }
+
 
 export default withRouter(connect(mapStateToProps)(App));
