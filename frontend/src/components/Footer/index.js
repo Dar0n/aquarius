@@ -16,7 +16,6 @@ class Footer extends Component {
   }
 
   render() {
-    console.log('In da footer!');
     return (
       <div className='Footer-container'>
         <div className='Footer-navigation-container'>

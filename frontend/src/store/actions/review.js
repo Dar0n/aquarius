@@ -9,7 +9,7 @@ const getReviews = (reviews) => ({
 
 
 
-export const reviewAction = (state, props) => {
+export const reviewAction = (state) => {
     return (dispatch, getState) => {
       const headers = new Headers({
         'content-type': 'application/json',
@@ -19,14 +19,15 @@ export const reviewAction = (state, props) => {
         headers: headers,
       }
       console.log("Before Fetch")
-      fetch(SERVER_URL + 'reviews/restaurant/2/', config)
+      fetch(SERVER_URL + 'reviews/restaurant/1/', config)
         .then(response => {
-            console.log("response");
-            console.log(response.json);
             return response.json();
         }).then(reviews =>{
-          console.log('reviews')
-          console.log(reviews)
+          const newState = { ...state }
+          reviews.forEach(element => {
+            newState[element.id]= element
+          });
+          dispatch(getReviews(newState))
         })
     }
   }

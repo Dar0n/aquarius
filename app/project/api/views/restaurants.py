@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -82,6 +83,15 @@ class GetUpdateDeleteRestaurantByIDView(GenericAPIView):
         IsOwnerOrReadOnly,
     ]
 
+    @staticmethod
+    def send_notification_email(email):
+        message = EmailMessage(
+            subject="Update user profile creation",
+            body=f"Update user profile creation",
+            to=[email],
+        )
+        message.send()
+
     def get(self, request, restaurant_id):
         restaurant = Restaurant.objects.get(id=restaurant_id)
         serializer = RestaurantSerializer(restaurant)
@@ -93,6 +103,11 @@ class GetUpdateDeleteRestaurantByIDView(GenericAPIView):
         serializer = RestaurantSerializer(restaurant, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+        self.send_notification_email(
+            email=request.user.email
+        )
+
         return Response(serializer.data)
 
     def delete(self, request, restaurant_id):

@@ -18,11 +18,12 @@ export const signupAction = (state, props) => {
       body: JSON.stringify(body),
       headers: headers,
     }
+    // const myUrl = SERVER_URL + 'registration/';
     fetch(SERVER_URL + 'registration/', config)
       .then(response => {
         // console.log(response);
         if (response.status === 200) {
-          props.history.push('/', {username: state.email});
+          props.history.push('/signup_message');
         }
         else if (response.status === 400) {
           alert('Bad e-mail format or user with this email already exists.');
@@ -32,18 +33,19 @@ export const signupAction = (state, props) => {
   }
 }
 
-export const validationSubmitAction = (state, props, signUpState) => {
+export const validationSubmitAction = (state, props) => {
   return (dispatch, getState) => {
-    if (!state.code || !state.password || !state.password_repeat || !state.first_name || !state.last_name) {
+    if (!state.email || !state.code || !state.username || !state.location || !state.password || !state.password_repeat) {
       alert('Not all fields filled');
     }
     else {
       const body = {
+        email: state.email,
         code: state.code,
+        username: state.username,
+        location: state.location,
         password: state.password,
         password_repeat: state.password_repeat,
-        first_name: state.first_name,
-        last_name: state.last_name,
       }
       const headers = new Headers({
         'content-type': 'application/json',
@@ -53,7 +55,7 @@ export const validationSubmitAction = (state, props, signUpState) => {
         body: JSON.stringify(body),
         headers,
       }
-      fetch('http://savchenko-ilya.propulsion-learn.ch/api/registration/validation/', config)
+      fetch(SERVER_URL + 'registration/validation/', config)
       .then(response => {
         // console.log(response);
         return response.json()
@@ -61,7 +63,7 @@ export const validationSubmitAction = (state, props, signUpState) => {
       .then(data => {
         // console.log(data);
         const body = {
-          username: signUpState.username,
+          username: state.username,
           password: state.password,
         }
         getTokens(body, props, dispatch, getState);
