@@ -1,18 +1,25 @@
-export const fetchFeed = content => dispatch => {
-  const token = JSON.parse(localStorage.getItem("token"));
+import { SERVER_URL } from "../constants";
+import { GET_RESTAURANTS } from "../constants";
+
+const postRestaurant = restaurants => ({
+  type: GET_RESTAURANTS,
+  payload: { restaurants }
+});
+
+export const fetchRestaurant = restaurants => dispatch => {
+  // const restaurants = getState().restaurants;
   const headers = new Headers({
     "content-type": "application/json"
   });
-  const body = JSON.stringify(content);
-  console.log("in the fetchFeed", body);
+  console.log("in the fetchRestaurant");
   const config = {
-    headers: headers,
-    body: body,
-    method: "GET"
+    method: "GET",
+    headers: headers
   };
-  fetch("http://aquarius.propulsion-learn.ch/backend/api/restaurants", config)
+  fetch(`${SERVER_URL}/restaurants`, config)
     .then(res => res.json())
     .then(data => {
-      dispatch(postFeed(data));
+      console.log("In da promise", data);
+      dispatch(postRestaurant(data));
     });
 };
