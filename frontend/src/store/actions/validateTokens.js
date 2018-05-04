@@ -69,7 +69,7 @@ export const validateTokens = (state, dispatch, props) => {
       if (data === undefined) {
         return;
       }
-      // console.log(data);
+      console.log(data);
       const tokens = {
         refresh: state.tokens.refresh,
         access: data.access, 

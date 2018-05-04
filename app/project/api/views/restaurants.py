@@ -1,15 +1,21 @@
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django.shortcuts import render
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
+from project.api.forms import CountryForm
 from project.api.permissions import IsOwnerOrReadOnly
 from project.api.serializers.restaurants import RestaurantRatingSerializer, RestaurantSerializer
 from project.api.serializers.users import UserSerializer
 from project.restaurant.models import Restaurant
 
+
+def select_country(request):
+    form = CountryForm()
+    return render(request, '../templates/country_field.html', {'form': form} )
 
 class PostNewRestaurantView(APIView):
     permission_classes = [
