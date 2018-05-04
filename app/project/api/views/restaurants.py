@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
-from project.api.forms import CountryForm
 from project.api.permissions import IsOwnerOrReadOnly
 from project.api.serializers.restaurants import RestaurantRatingSerializer, RestaurantSerializer
 from project.api.serializers.users import UserSerializer

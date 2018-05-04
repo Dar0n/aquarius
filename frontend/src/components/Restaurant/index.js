@@ -21,7 +21,7 @@
 //           <div className='RestaurantCard-card-container'>
 //             <h4 className='RestaurantCard-title'>{props.restaurant.name}</h4>
 //             <h6 className='RestaurantCard-address'>{props.restaurant.address}</h6>
-//             <p className='RestaurantCard-description'>{props.restaurant.content}</p>
+//             <p className='RestaurantCard-description'>{props.restaurant.content}</div>
 //           </div>
 //
 //           <div className='RestaurantCard-footer'>
