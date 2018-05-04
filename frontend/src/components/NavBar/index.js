@@ -8,6 +8,8 @@ import logo from './logo.svg'
 
 import './index.css';
 
+import Review from '../Review'
+
 
 class NavBar extends Component {
 
@@ -81,9 +83,11 @@ class NavBar extends Component {
   render() {
     console.log(this.props);
     return (
+    
       <div className='NavBar-container'>
         <div className='NavBar-logo-container'>
           <img src={ logo } alt='Luna-logo'/>
+          
         </div>
         <div className='NavBar-navigation-container'>
           <div className='Navbar-nav'>
@@ -91,6 +95,7 @@ class NavBar extends Component {
               <li className='Navbar-nav-li-active' onClick={ this.navigate }><Link to='/'>Home</Link></li>
               <li onClick={ this.navigate }><Link to='/'>Search</Link></li>
               <li onClick={ this.navigate }><Link to='/'>Profile</Link></li>
+              
             </ul>
           </div>
           {
@@ -98,9 +103,14 @@ class NavBar extends Component {
           }
           {/* <div className='NavBar-auth-container'>
             <button className='NavBar-auth-signup' onClick={ this.handleSignUp }>Signup</button>
+            <button className='NavBar-auth-login'>Login</button>
+            
+          </div>
+          
             <button className='NavBar-auth-login' onClick={ this.handleLogin }>{ this.state.loginStatus }</button>
           </div> */}
         </div>
+        <Review />
       </div>
     );
   }
@@ -108,6 +118,7 @@ class NavBar extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
+    
     tokens: state.tokens,
     loginStatus: state.loginStatus.loginStatus,
     localUser: state.localUser
