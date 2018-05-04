@@ -5,6 +5,8 @@ import logo from './logo.svg'
 
 import './index.css';
 
+import Review from '../Review'
+
 
 class NavBar extends Component {
 
@@ -22,9 +24,11 @@ class NavBar extends Component {
   render() {
     console.log('In da navbar!');
     return (
+    
       <div className='NavBar-container'>
         <div className='NavBar-logo-container'>
           <img src={ logo } alt='Luna-logo'/>
+          
         </div>
         <div className='NavBar-navigation-container'>
           <div className='Navbar-nav'>
@@ -32,13 +36,17 @@ class NavBar extends Component {
               <li className='Navbar-nav-li-active' onClick={ this.navigate }><Link to='/'>Home</Link></li>
               <li onClick={ this.navigate }><Link to='/'>Search</Link></li>
               <li onClick={ this.navigate }><Link to='/'>Profile</Link></li>
+              
             </ul>
           </div>
           <div className='NavBar-auth-container'>
             <button className='NavBar-auth-signup' onClick={ this.handleSignUp }>Signup</button>
             <button className='NavBar-auth-login'>Login</button>
+            
           </div>
+          
         </div>
+        <Review />
       </div>
     );
   }
@@ -46,7 +54,7 @@ class NavBar extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-
+    
   }
 }
 

@@ -14,6 +14,8 @@ const Home = (props) => {
             <NavBar />
             <Route exact path="/" component={ App } />
             <Route exact path="/signup" component={ Signup } />
+            {/* <Route exact path="/restaurant/:id" component={ Restaurant } /> */}
+
             <Footer />
           </ScrollToTop>
         </Switch>

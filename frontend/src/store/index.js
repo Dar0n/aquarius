@@ -5,6 +5,7 @@ import {tokens} from './tokens';
 
 const reducer = combineReducers({
   tokens,
+  
 })
 
 const store = createStore(
