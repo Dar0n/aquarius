@@ -36,11 +36,15 @@
 }
 
 .NewRestaurant-formfields-fieldset {
-  margin: 30px auto;
+  margin: 30px auto 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
+}
+
+.NewRestaurant-formfields-fieldset legend {
+  font-size: 10pt;
 }
 
 .NewRestaurant-formfields-fieldset-inputs {
@@ -57,6 +61,7 @@
 }
 
 .NewRestaurant-formfields-fieldset-inputs > div {
+  width: 30%;
   display: flex;
   flex-direction: column;
 }
@@ -68,6 +73,12 @@
   border: none;
   border-radius: 3px;
   background-color: #fff;
+  margin-top: 10px;
+  outline: none;
+  box-shadow: 1px 2px 3px 0px rgb(224, 223, 223);
+  padding-left: 10px;
+  font-size: 14pt;
+  color: #979797;
 }
 
 
@@ -77,25 +88,37 @@
   width: 30%;
 }
 
-.Login-formfields-container > input {
-  margin-top: 15px;
-  width: 250px;
+.NewRestaurant-formfields-fileUploadContainer {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.NewRestaurant-formfields-fileUploadButton {
+  position: relative;
+  width: 60%;
   height: 30px;
+  top: 10px;
+  background-color: #E47D31;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 12pt;
   outline: none;
-  padding-left: 10px;
-  font-size: 11pt;
-  color: #757575;
   border: none;
 }
 
-.Login-formfields-container> input::placeholder {
-  font-size: 11pt;
-  font-weight: 400;
-  /* padding-left: 10px; */
+.NewRestaurant-formfields-fieldset-inputs #file {
+  position: relative;
+  background-color: #F8F8F8;
+  top: -30px;
+  height: 40px;
+  width: 60%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
 }
 
-.Login-form > button {
-  margin: 40px;
+.NewRestaurant-form-submitButton {
   height: 40px;
   width: 150px;
   background-color: #E47D31;
@@ -105,4 +128,33 @@
   cursor: pointer;
   outline: none;
   border: none;
+  margin: 30px auto;
+}
+
+.NewRestaurant-formfields-dropdown {
+  position: relative;
+}
+
+.NewRestaurant-formfields-dropdown:after {
+  content: '\f078';
+  font: normal normal normal 27px/1 FontAwesome;
+  color: #ddd;
+  right: 5px;
+  top: 20px;
+  height: 34px;
+  padding: 15px 0px 0px 8px;
+  position: absolute;
+  pointer-events: none;
+}
+
+/* IE11 hide native button (thanks Matt!) */
+.NewRestaurant-formfields-dropdown select::-ms-expand {
+  display: none;
+}
+
+.NewRestaurant-formfields-dropdown select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
 }
