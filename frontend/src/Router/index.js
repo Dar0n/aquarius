@@ -18,6 +18,8 @@ const Home = (props) => {
             <NavBar />
             <Route exact path="/" component={ App } />
             <Route exact path="/signup" component={ Signup } />
+            {/* <Route exact path="/restaurant/:id" component={ Restaurant } /> */}
+
             <Route exact path="/signup_message" component={ SignupMessage } />
             <Route exact path="/registration/validation" component={ SignupValidation } />
             <Route exact path="/login" component={ Login } />
