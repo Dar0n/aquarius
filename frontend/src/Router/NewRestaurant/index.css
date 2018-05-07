@@ -135,11 +135,11 @@
   position: relative;
 }
 
-.NewRestaurant-formfields-dropdown:after {
+.NewRestaurant-formfields-dropdown > label:after {
   content: '\f078';
   font: normal normal normal 27px/1 FontAwesome;
   color: #ddd;
-  right: 5px;
+  left: 200px;
   top: 20px;
   height: 34px;
   padding: 15px 0px 0px 8px;
